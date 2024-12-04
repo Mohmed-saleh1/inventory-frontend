@@ -8,9 +8,20 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        lexend: ["lexend", "sans serif"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        black: {
+          10: "#16151C",
+        },
+        blue: {
+          10: "#006EC4",
+        },
+      },
+      backgroundColor: {
+        sidebarBackground: "rgba(0, 110, 196, 0.2)",
+        activeLinkBackground: "rgba(0, 110, 196, 0.05)",
       },
     },
   },
