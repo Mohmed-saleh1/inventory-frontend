@@ -1,7 +1,6 @@
 import React from "react";
 import "./globals.css";
 import type { Metadata } from "next";
-import Sidebar from "./components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,12 +11,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body className="antialiased">
-        <div className="flex h-screen">
-          {/* Sidebar */}
-          <Sidebar />
-          {/* Main Content */}
-          <main>{children}</main>
-        </div>
+        <div>{children}</div>
       </body>
     </html>
   );
