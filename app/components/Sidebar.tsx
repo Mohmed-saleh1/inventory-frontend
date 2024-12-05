@@ -58,7 +58,7 @@ const Sidebar = () => {
         {/* Custom button for logout with optional onClick handler */}
         <CustomButton
           title="Logout"
-          containerClass="absolute bottom-5 left-5"
+          containerClass="absolute bottom-5 left-5 text-white"
           onClick={() => console.log("Logout clicked")}
         />
       </div>

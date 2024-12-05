@@ -6,6 +6,7 @@ interface CustomButtonProps {
   rightIcon?: ReactNode;
   leftIcon?: ReactNode; 
   containerClass?: string;
+  titleClass?: string;
   onClick?: () => void;    
 }
 
@@ -23,7 +24,7 @@ const CustomButton = ({
       onClick={onClick}
     >
       {leftIcon}  {/* Render left icon if provided */}
-      <span className="relative inline-flex overflow-hidden font-light font-lexend text-base text-white">
+      <span className="relative inline-flex overflow-hidden font-light font-lexend text-base">
         <div>{title}</div>  {/* Render the button title */}
       </span>
       {rightIcon}  {/* Render right icon if provided */}

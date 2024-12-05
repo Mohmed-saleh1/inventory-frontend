@@ -1,8 +1,9 @@
 'use client';
 import React, { useState } from 'react';
 import InputField from './InputField';
+import CustomButton from './CustomButton';
 
-const Adddform: React.FC = () => {
+const Addform: React.FC = () => {
   const [formData, setFormData] = useState({
     category: '',
     image: '',
@@ -23,11 +24,10 @@ const Adddform: React.FC = () => {
   };
 
   return (
-    <div className="flex bg-white h-[88vh]">
-      <div className="w-[330px]"></div>
+    <div className="flex bg-white">
       <form
         onSubmit={handleSubmit}
-        className="w-[70%] mt-6 mb-14 mx-auto shadow-lg flex flex-col px-20 pt-4  rounded-2xl"
+        className="mt-6 shadow-lg flex flex-col px-20 pt-4 w-full  rounded-2xl relative "
       >
         <h1 className="text-2xl text-black font-semibold mb-4">Add New Item</h1>
         
@@ -97,15 +97,13 @@ const Adddform: React.FC = () => {
         </div>
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
-        >
-          Submit
-        </button>
+        <div className='w-full bg-white flex justify-center items-center gap-3 py-5'>
+          <CustomButton title='Cancel' containerClass='bg-white border w-[166px] h-[50px]'/>
+          <CustomButton title='Add' containerClass='text-white border w-[166px] h-[50px]'/>
+        </div>
       </form>
     </div>
   );
 };
 
-export default Adddform;
+export default Addform;
