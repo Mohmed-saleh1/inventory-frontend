@@ -1,9 +1,9 @@
-import Addform from "@/app/components/addform";
+import AllItems from "@/app/components/AllItems";
 
 export default function ItemsPage() {
   return (
     <div>
-      <Addform />
+      <AllItems />
     </div>
   );
 }

@@ -10,6 +10,7 @@ export default {
     extend: {
       fontFamily: {
         lexend: ["lexend", "sans serif"],
+        manrope: ["manrope", "sans serif"],
       },
       colors: {
         black: {
@@ -18,6 +19,7 @@ export default {
         blue: {
           10: "#006EC4",
         },
+        customGray: "#687588",
       },
       backgroundColor: {
         sidebarBackground: "rgba(0, 110, 196, 0.2)",
