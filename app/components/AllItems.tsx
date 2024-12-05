@@ -13,11 +13,11 @@ export const AllItems = () => {
   const router = useRouter();
 
   const handleAddItemClick = () => {
-    router.push("/add-items"); // Redirect to add-item page
+    router.push("/items/add-items"); // Redirect to add-item page
   };
 
   const handleEditItemClick = () => {
-    router.push("/update-product"); // Redirect to update-product page
+    router.push("/items/update-product"); // Redirect to update-product page
   };
 
   const handleDeleteItemClick = () => {

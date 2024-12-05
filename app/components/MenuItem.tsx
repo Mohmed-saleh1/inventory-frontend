@@ -15,8 +15,8 @@ const MenuItem = ({ name, icon, path, isClickable }: MenuItemProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Check if the item is currently active
-  const isActive = pathname === path && isClickable;
+  // Define the paths that should be considered as active for the "Items" menu item
+  const isActive = pathname === path || pathname.startsWith(path) && isClickable;
 
   return (
     <li

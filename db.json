@@ -1,0 +1,284 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "category": "Man",
+      "name": "Kids T-shirt",
+      "image": "/Roshdy.png",
+      "code": "G-7893",
+      "amount": "1 pcs"
+    },
+    {
+      "id": 2,
+      "category": "Woman",
+      "name": "Kids T-shirt",
+      "image": "/Roshdy.png",
+      "code": "Co-7898",
+      "amount": "3 pcs"
+    },
+    {
+      "id": 3,
+      "category": "Kid's",
+      "name": "Cool Jacket",
+      "image": "/Roshdy.png",
+      "code": "K-1234",
+      "amount": "2 pcs"
+    },
+    {
+      "id": 4,
+      "category": "Man",
+      "name": "Formal Shirt",
+      "image": "/Roshdy.png",
+      "code": "M-2345",
+      "amount": "5 pcs"
+    },
+    {
+      "id": 5,
+      "category": "Woman",
+      "name": "Summer Dress",
+      "image": "/Roshdy.png",
+      "code": "W-3456",
+      "amount": "1 pcs"
+    },
+    {
+      "id": 6,
+      "category": "Kid's",
+      "name": "Casual Pants",
+      "image": "/Roshdy.png",
+      "code": "K-4567",
+      "amount": "3 pcs"
+    },
+    {
+      "id": 7,
+      "category": "Man",
+      "name": "Sports Shorts",
+      "image": "/Roshdy.png",
+      "code": "M-5678",
+      "amount": "4 pcs"
+    },
+    {
+      "id": 8,
+      "category": "Woman",
+      "name": "Party Gown",
+      "image": "/Roshdy.png",
+      "code": "W-6789",
+      "amount": "2 pcs"
+    },
+    {
+      "id": 9,
+      "category": "Kid's",
+      "name": "Graphic Tee",
+      "image": "/Roshdy.png",
+      "code": "K-7890",
+      "amount": "6 pcs"
+    },
+    {
+      "id": 10,
+      "category": "Man",
+      "name": "Denim Jacket",
+      "image": "/Roshdy.png",
+      "code": "M-8901",
+      "amount": "1 pcs"
+    },
+    {
+      "id": 11,
+      "category": "Woman",
+      "name": "Scarf",
+      "image": "/Roshdy.png",
+      "code": "W-9012",
+      "amount": "8 pcs"
+    },
+    {
+      "id": 12,
+      "category": "Man",
+      "name": "Winter Coat",
+      "image": "/Roshdy.png",
+      "code": "M-0123",
+      "amount": "1 pcs"
+    },
+    {
+      "id": 13,
+      "category": "Kid's",
+      "name": "Rain Jacket",
+      "image": "/Roshdy.png",
+      "code": "K-1122",
+      "amount": "4 pcs"
+    },
+    {
+      "id": 14,
+      "category": "Man",
+      "name": "Cotton T-shirt",
+      "image": "/Roshdy.png",
+      "code": "M-2233",
+      "amount": "3 pcs"
+    },
+    {
+      "id": 15,
+      "category": "Woman",
+      "name": "Evening Dress",
+      "image": "/Roshdy.png",
+      "code": "W-3344",
+      "amount": "2 pcs"
+    },
+    {
+      "id": 16,
+      "category": "Kid's",
+      "name": "Sweatpants",
+      "image": "/Roshdy.png",
+      "code": "K-4455",
+      "amount": "7 pcs"
+    },
+    {
+      "id": 17,
+      "category": "Man",
+      "name": "Leather Belt",
+      "image": "/Roshdy.png",
+      "code": "M-5566",
+      "amount": "2 pcs"
+    },
+    {
+      "id": 18,
+      "category": "Woman",
+      "name": "High Heels",
+      "image": "/Roshdy.png",
+      "code": "W-6677",
+      "amount": "1 pcs"
+    },
+    {
+      "id": 19,
+      "category": "Man",
+      "name": "Sunglasses",
+      "image": "/Roshdy.png",
+      "code": "M-7788",
+      "amount": "3 pcs"
+    },
+    {
+      "id": 20,
+      "category": "Kid's",
+      "name": "Backpack",
+      "image": "/Roshdy.png",
+      "code": "K-8899",
+      "amount": "5 pcs"
+    },
+    {
+      "id": 21,
+      "category": "Man",
+      "name": "Hoodie",
+      "image": "/Roshdy.png",
+      "code": "M-9900",
+      "amount": "1 pcs"
+    },
+    {
+      "id": 22,
+      "category": "Woman",
+      "name": "Handbag",
+      "image": "/Roshdy.png",
+      "code": "W-0011",
+      "amount": "4 pcs"
+    },
+    {
+      "id": 23,
+      "category": "Kid's",
+      "name": "Sandals",
+      "image": "/Roshdy.png",
+      "code": "K-1123",
+      "amount": "6 pcs"
+    },
+    {
+      "id": 24,
+      "category": "Man",
+      "name": "Formal Trousers",
+      "image": "/Roshdy.png",
+      "code": "M-2234",
+      "amount": "2 pcs"
+    },
+    {
+      "id": 25,
+      "category": "Woman",
+      "name": "Bracelet",
+      "image": "/Roshdy.png",
+      "code": "W-3345",
+      "amount": "7 pcs"
+    },
+    {
+      "id": 26,
+      "category": "Kid's",
+      "name": "Baseball Cap",
+      "image": "/Roshdy.png",
+      "code": "K-4456",
+      "amount": "5 pcs"
+    },
+    {
+      "id": 27,
+      "category": "Man",
+      "name": "Sneakers",
+      "image": "/Roshdy.png",
+      "code": "M-5567",
+      "amount": "3 pcs"
+    },
+    {
+      "id": 28,
+      "category": "Woman",
+      "name": "Ankle Boots",
+      "image": "/Roshdy.png",
+      "code": "W-6678",
+      "amount": "2 pcs"
+    },
+    {
+      "id": 29,
+      "category": "Kid's",
+      "name": "Tracksuit",
+      "image": "/Roshdy.png",
+      "code": "K-7789",
+      "amount": "6 pcs"
+    },
+    {
+      "id": 30,
+      "category": "Man",
+      "name": "Running Shoes",
+      "image": "/Roshdy.png",
+      "code": "M-8890",
+      "amount": "4 pcs"
+    },
+    {
+      "id": 31,
+      "category": "Woman",
+      "name": "Earrings",
+      "image": "/Roshdy.png",
+      "code": "W-9901",
+      "amount": "8 pcs"
+    },
+    {
+      "id": 32,
+      "category": "Kid's",
+      "name": "Winter Gloves",
+      "image": "/Roshdy.png",
+      "code": "K-0012",
+      "amount": "4 pcs"
+    },
+    {
+      "id": 33,
+      "category": "Man",
+      "name": "Hat",
+      "image": "/Roshdy.png",
+      "code": "M-1123",
+      "amount": "2 pcs"
+    },
+    {
+      "id": 34,
+      "category": "Woman",
+      "name": "Necklace",
+      "image": "/Roshdy.png",
+      "code": "W-2234",
+      "amount": "1 pcs"
+    },
+    {
+      "id": 35,
+      "category": "Kid's",
+      "name": "School Uniform",
+      "image": "/Roshdy.png",
+      "code": "K-3345",
+      "amount": "10 pcs"
+    }
+  ]
+}
