@@ -1,41 +1,54 @@
+"use client";
 
-import React from 'react';
+import React from "react";
 import { CiSearch } from "react-icons/ci";
+import { usePathname } from "next/navigation";
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
+  const pathname = usePathname();
 
-    return (
-        <nav className="flex  bg-white text-black py-1 shadow-md">
-            <div className='w-[330px]'></div>
-            <div className='flex justify-around w-full  pt-7'>
-                <div className=" mr-32    ">
-                   <h1 className='text-2xl font-extrabold'> Add Items </h1> 
-                    <p className='text-[#A2A1A8]'>add itmms dataill information</p>
-                </div>
-                <div className="flex  gap-14">
+  // Allow dynamic keys using Record
+  const titles: Record<string, { title: string; subtitle: string }> = {
+    "/items": { title: "All Items", subtitle: "Items details information" },
+    "/add-items": { title: "Add Items", subtitle: "Add items details information" },
+    "/update-product": { title: "Update Product", subtitle: "Update details information" },
+    "/add-sales": { title: "Add Daily Sales", subtitle: "sales details information" },
+    "/reports": { title: "Reports", subtitle: "reports details Information" },
+  };
 
+  // Fallback for undefined pathnames
+  const currentTitle = titles[pathname] ?? {
+    title: "Dashboard",
+    subtitle: "Overview of your inventory",
+  };
 
-                    <div className="relative flex items-center border-2 rounded-xl hover:border hover:border-blue-500  ">
-                        <span className="ml-2 text-black text-3xl">
-                            <CiSearch />
-                        </span>
-                        <input
-                            type="text"
+  return (
+    <nav className="flex text-black py-1">
+      <div className="flex justify-between w-full">
+        <div>
+          <h1 className="text-2xl font-extrabold">{currentTitle.title}</h1>
+          <p className="text-[#A2A1A8]">{currentTitle.subtitle}</p>
+        </div>
+        <div className="flex gap-14">
+          <div className="relative flex items-center border-2 rounded-xl hover:border hover:border-blue-500">
+            <span className="ml-2 text-black text-3xl">
+              <CiSearch />
+            </span>
+            <input
+              type="text"
+              placeholder="Search..."
+              className="p-2 w-full focus:outline-none"
+            />
+          </div>
 
-                            placeholder="Search..."
-                            className=" p-2 w-full focus:outline-none"
-                        />
-
-                    </div>
-
-                    <div className=' flex items-center w-40 px-5 border rounded-xl'>
-                        <h1>Ahmed Aly</h1>
-                        <img className='pl-5' src="direction-down 01.png" alt="" />
-                    </div>
-                </div>
-            </div>
-        </nav>
-    );
+          <div className="flex items-center w-40 px-5 border rounded-xl">
+            <h1>Ahmed Aly</h1>
+            <img className="pl-5" src="direction-down 01.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;

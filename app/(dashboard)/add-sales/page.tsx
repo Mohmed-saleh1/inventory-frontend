@@ -1,5 +1,3 @@
 export default function AddSalesPage() {
-  return (
-    <div>AddSales</div>
-  );
+  return <div>AddSalesPage</div>;
 }
