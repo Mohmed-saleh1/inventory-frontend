@@ -12,6 +12,9 @@ export default {
         lexend: ["lexend", "sans serif"],
         manrope: ["manrope", "sans serif"],
       },
+      images: {
+        domains: ["inventory-backend-sqbj.onrender.com"],
+      },
       colors: {
         black: {
           10: "#16151C",

@@ -1,4 +1,5 @@
-import AllItems from "@/app/components/AllItems";
+import AllItems from "../../components/AllItems";
+
 
 export default function ItemsPage() {
   return (
