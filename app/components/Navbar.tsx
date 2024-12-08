@@ -10,24 +10,36 @@ const Navbar = () => {
   // Allow dynamic keys using Record
   const titles: Record<string, { title: string; subtitle: string }> = {
     "/items": { title: "All Items", subtitle: "Items details information" },
-    "/add-items": { title: "Add Items", subtitle: "Add items details information" },
-    "/update-product": { title: "Update Product", subtitle: "Update details information" },
+    "/items/add-items": { title: "Add Items", subtitle: "Add items details information" },
+    "/items/update-product/": { title: "Update Product", subtitle: "Update details information" },
     "/add-sales": { title: "Add Daily Sales", subtitle: "sales details information" },
     "/reports": { title: "Reports", subtitle: "reports details Information" },
   };
 
-  // Fallback for undefined pathnames
-  const currentTitle = titles[pathname] ?? {
-    title: "Dashboard",
-    subtitle: "Overview of your inventory",
-  };
+  // Handle dynamic routing logic for `/items/update-product/[id]`
+  let currentTitle = titles[pathname];
+  if (pathname?.startsWith("/items/update-product/")) {
+    const dynamicId = pathname.split("/").pop(); // Extract dynamic ID from the path
+    currentTitle = {
+      title: "Update Product",
+      subtitle: `Update details information for Product ${dynamicId}`,
+    };
+  }
+
+  // Fallback for undefined paths
+  if (!currentTitle) {
+    currentTitle = {
+      title: "Dashboard",
+      subtitle: "Overview of your inventory",
+    };
+  }
 
   return (
     <nav className="flex text-black py-1">
       <div className="flex justify-between w-full">
         <div>
-          <h1 className="text-2xl font-extrabold">{currentTitle.title}</h1>
-          <p className="text-[#A2A1A8]">{currentTitle.subtitle}</p>
+          <h1 className="text-2xl font-extrabold">{currentTitle?.title}</h1>
+          <p className="text-[#A2A1A8]">{currentTitle?.subtitle}</p>
         </div>
         <div className="flex gap-14">
           <div className="relative flex items-center border-2 rounded-xl hover:border hover:border-blue-500">
@@ -43,7 +55,7 @@ const Navbar = () => {
 
           <div className="flex items-center w-40 px-5 border rounded-xl">
             <h1>Ahmed Aly</h1>
-            <img className="pl-5" src="direction-down 01.png" alt="" />
+            <img className="pl-5" src="direction-down 01.png" alt="dropdown" />
           </div>
         </div>
       </div>
