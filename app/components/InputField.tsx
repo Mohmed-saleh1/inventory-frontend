@@ -23,7 +23,7 @@ const InputField: React.FC<InputFieldProps> = ({
 }) => {
   return (
     <div className={`mb-2 ${className}`}>
-      <label className={`block text-sm font-medium text-gray-700 mb-3 ${className}`}>
+      <label className={` text-sm font-medium text-gray-700  ${className}`}>
         {label}{required && <span className={` text-red-500 ${className}`}>*</span>}
       </label>
       <input
@@ -34,7 +34,7 @@ const InputField: React.FC<InputFieldProps> = ({
         value={value}
         onChange={onChange
         }
-        className={` ${className} block w-full px-3 py-4  h-[63px]
+        className={` ${className} block w-full mt-2 px-3 py-4  h-[63px]
           border-gray-100 border-2 rounded-xl  shadow-sm focus:outline-none
           focus:ring-blue-500 focus:border-blue-500 sm:text-base text-gray-100 `}
       />

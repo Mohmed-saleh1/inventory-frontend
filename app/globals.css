@@ -8,3 +8,10 @@
     src: url("/fonts/Lexend-Regular.woff") format("woff");
   }
 }
+
+@layer base {
+  @font-face {
+    font-family: "Poppins";
+    src: url("/public/fonts/Poppins-Regular.ttf") format("ttf");
+  }
+}
