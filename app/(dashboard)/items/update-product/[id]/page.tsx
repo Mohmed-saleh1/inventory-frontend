@@ -1,4 +1,7 @@
-export default function UpdateProduct() {
-    return <div>UpdateProduct</div>;
-  }
-  
+import React from "react";
+
+const UpdateProduct = () => {
+  return <div>UpdateProduct</div>;
+};
+
+export default UpdateProduct;
