@@ -10,6 +10,7 @@ export default {
     extend: {
       fontFamily: {
         lexend: ["lexend", "sans serif"],
+        Poppins :["Poppins","sans serif"]
       },
       colors: {
         black: {
