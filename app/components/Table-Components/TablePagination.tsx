@@ -12,12 +12,17 @@ const TablePagination = ({
 }) => {
   return (
     <div className="flex justify-between items-center mt-4 text-gray-600 text-sm">
+      {/* Display current range of records */}
       <p className="text-gray-500">
         Showing {(currentPage - 1) * recordsPerPage + 1} to{" "}
         {Math.min(currentPage * recordsPerPage, tableData.length)} out of{" "}
         {tableData.length} records
       </p>
+      
+      {/* Pagination Controls */}
       <div className="flex items-center space-x-2">
+        
+        {/* Previous Page Button */}
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
@@ -29,6 +34,8 @@ const TablePagination = ({
         >
           <FaChevronLeft />
         </button>
+        
+        {/* Dynamically Render Page Numbers */}
         {[...Array(totalPages)].map((_, index) => {
           const page = index + 1;
           return (
@@ -45,6 +52,8 @@ const TablePagination = ({
             </button>
           );
         })}
+        
+        {/* Next Page Button */}
         <button
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
