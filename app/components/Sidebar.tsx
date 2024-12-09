@@ -7,6 +7,8 @@ import { TbShoppingBag } from "react-icons/tb";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import { TiDocumentText } from "react-icons/ti";
 import MenuItem from "./MenuItem";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { BsGraphUpArrow } from "react-icons/bs";
 
 const Sidebar = () => {
   // Define the menu items with their respective properties
@@ -33,6 +35,18 @@ const Sidebar = () => {
       name: "Reports",
       icon: <TiDocumentText size={24} />,
       path: "/reports",
+      isClickable: true,
+    },
+    {
+      name: "Waste",
+      icon: <FaRegTrashAlt size={24} />,
+      path: "/waste",
+      isClickable: true,
+    },
+    {
+      name: "Profits",
+      icon: <BsGraphUpArrow />,
+      path: "/profits",
       isClickable: true,
     },
   ];
