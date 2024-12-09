@@ -1,9 +1,10 @@
-import Addform from "@/app/components/addform";
+import AllItems from "../../components/Table-Components/AllItems";
+
 
 export default function ItemsPage() {
   return (
     <div>
-      <Addform />
+      <AllItems />
     </div>
   );
 }

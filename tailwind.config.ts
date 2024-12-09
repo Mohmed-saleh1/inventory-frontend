@@ -10,7 +10,14 @@ export default {
     extend: {
       fontFamily: {
         lexend: ["lexend", "sans serif"],
+
         Poppins :["Poppins","sans serif"]
+
+        manrope: ["manrope", "sans serif"],
+      },
+      images: {
+        domains: ["inventory-backend-sqbj.onrender.com"],
+
       },
       colors: {
         black: {
@@ -19,6 +26,7 @@ export default {
         blue: {
           10: "#006EC4",
         },
+        customGray: "#687588",
       },
       backgroundColor: {
         sidebarBackground: "rgba(0, 110, 196, 0.2)",
