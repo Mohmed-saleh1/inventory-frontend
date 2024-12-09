@@ -55,7 +55,7 @@ const Navbar = () => {
 
           <div className="flex items-center w-40 px-5 border rounded-xl">
             <h1>Ahmed Aly</h1>
-            <img className="pl-5" src="direction-down 01.png" alt="dropdown" />
+            <img className="pl-5" src="/direction-down 01.png" alt="dropdown" />
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ const Addform: React.FC = () => {
     <div className="flex bg-white">
       <form
         onSubmit={handleSubmit}
-        className="mt-6 shadow-lg flex flex-col px-20 pt-4 w-full  rounded-2xl relative "
+        className="mt-6 shadow-lg flex flex-col px-20 pt-4 w-full rounded-2xl relative "
       >
         <h1 className="text-2xl text-black font-semibold mb-4">Add New Item</h1>
         
@@ -99,7 +99,7 @@ const Addform: React.FC = () => {
         {/* Submit Button */}
         <div className='w-full bg-white flex justify-center items-center gap-3 py-5'>
           <CustomButton title='Cancel' containerClass='bg-white border w-[166px] h-[50px]'/>
-          <CustomButton title='Add' containerClass='text-white border w-[166px] h-[50px]'/>
+          <CustomButton title='Update' containerClass='text-white border w-[166px] h-[50px]'/>
         </div>
       </form>
     </div>

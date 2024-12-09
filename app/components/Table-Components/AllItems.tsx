@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import CustomButton from "./CustomButton";
+import CustomButton from "../CustomButton";
 import { GrAddCircle } from "react-icons/gr";
 import { FaSliders } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
-import SearchInput from "./SearchInput";
+import SearchInput from "../SearchInput";
 import ItemsTable from "./ItemsTable";
 
 // Main component for displaying all items with search, add, and filter functionalities

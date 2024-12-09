@@ -1,7 +1,9 @@
-import Addform from "@/app/components/addform";
+import Addform from "../../../components/addform";
 
 export default function AddItems() {
-  return <div>
-    <Addform/>
-  </div>;
+  return (
+    <div>
+      <Addform />
+    </div>
+  );
 }

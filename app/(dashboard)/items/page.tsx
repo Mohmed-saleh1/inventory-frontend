@@ -1,4 +1,4 @@
-import AllItems from "../../components/AllItems";
+import AllItems from "../../components/Table-Components/AllItems";
 
 
 export default function ItemsPage() {
