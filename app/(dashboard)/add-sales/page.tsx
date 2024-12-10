@@ -1,7 +1,8 @@
 'use client';
 import React, { useState } from "react";
-import CustomButton from "@/app/components/CustomButton";
-import InputField from "@/app/components/InputField";
+import InputField from "../../components/InputField";
+import CustomButton from "../../components/CustomButton";
+
 
 // Define the Product interface to structure the product data
 interface Product {
