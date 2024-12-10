@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 
 const ImageList = ({ productId }: { productId: string }) => {
   const [data, setData] = useState<TableItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true); // New loading state
 
   // Fetch product images from the API
   const fetchProductImage = async (id: string) => {
     try {
+      setIsLoading(true); // Start loading
       const response = await fetch(
         `https://inventory-backend-sqbj.onrender.com/products/${id}`
       );
@@ -18,13 +20,15 @@ const ImageList = ({ productId }: { productId: string }) => {
       }
 
       const fetchedData = await response.json();
-      
+
       // Ensure fetched data is always treated as an array
       const dataArray = Array.isArray(fetchedData) ? fetchedData : [fetchedData];
-      
+
       setData(dataArray);
     } catch (error) {
       console.error("Error fetching product image:", error);
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -35,18 +39,21 @@ const ImageList = ({ productId }: { productId: string }) => {
   }, [productId]);
 
   return (
-    <div className="mt-6 shadow-lg px-10 pt-4 rounded-2xl w-[210px] min-h-[670px] h-[670px] overflow-y-scroll flex flex-col items-center">
-      {data.length > 0 ? (
+    <div className="mt-6 shadow-lg px-1 pt-4 rounded-2xl w-[210px] min-h-[670px] h-[670px] overflow-y-scroll flex flex-col items-center">
+      {isLoading ? (
+        // Show loading indicator while data is loading
+        <div className="text-gray-500 text-center">Loading images...</div>
+      ) : data.length > 0 ? (
         data.map((item: TableItem, index: number) => {
           return item.image ? (
             <div key={index} className="mb-4">
               {/* Render image only if it exists */}
               <Image
-                src={`https://inventory-backend-sqbj.onrender.com${item.image}`}
+                src={`${item.image}`}
                 alt={`Product Image ${index + 1}`}
-                width={100}
-                height={50}
-                className="cursor-pointer"
+                width={200}
+                height={100}
+                className="cursor-pointer w-full"
                 unoptimized
               />
             </div>

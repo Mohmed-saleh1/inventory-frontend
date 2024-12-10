@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { usePathname, useParams } from "next/navigation";
+import { usePathname, useParams, useRouter } from "next/navigation";
 import CustomButton from "../../../../components/CustomButton";
 import ImageList from "../../../../components/ImageList";
 import InputField from "../../../../components/InputField";
 import LoadingScreen from "../../../../components/LoadingScreen";
 
 const UpdateProduct = () => {
-  // State to manage form input fields
   const [formData, setFormData] = useState({
     category: "",
     image: null,
@@ -17,12 +16,12 @@ const UpdateProduct = () => {
     description: "",
   });
 
-  // State to handle loading indicator and error messages
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const { id } = useParams();
   const pathname = usePathname();
+  const router = useRouter(); // Use the router for navigation
 
   /** Fetch product details from server and prefill form fields */
   const fetchProductDetails = async (productId: string) => {
@@ -37,11 +36,9 @@ const UpdateProduct = () => {
       }
 
       const data = await response.json();
-
-      // Populate form fields with the fetched product data
       setFormData({
         category: data.category || "",
-        image: null, // Only set null, image re-upload will be optional
+        image: null,
         quantity: String(data.quantity) || "",
         name: data.name || "",
         price: String(data.price) || "",
@@ -55,7 +52,6 @@ const UpdateProduct = () => {
     }
   };
 
-  // Fetch product details on component mount or pathname change
   useEffect(() => {
     if (!pathname) return;
 
@@ -63,11 +59,9 @@ const UpdateProduct = () => {
     if (safeId) fetchProductDetails(safeId);
   }, [pathname, id]);
 
-  /** Handle change for input fields */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type } = e.target;
 
-    // Handle file input differently than other fields
     if (type === "file") {
       const file = e.target.files?.[0];
       setFormData({ ...formData, [name]: file });
@@ -76,7 +70,6 @@ const UpdateProduct = () => {
     }
   };
 
-  /** Handle form submission logic */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -105,8 +98,6 @@ const UpdateProduct = () => {
         }
       );
 
-      console.log("Response status:", response.status);
-
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText);
@@ -125,11 +116,9 @@ const UpdateProduct = () => {
         <LoadingScreen />
       ) : (
         <div className="flex justify-center items-center gap-5">
-          {/* Display the product's images list */}
           <ImageList productId={Array.isArray(id) ? id[0] : id} />
 
           <div className="mt-6 shadow-lg flex flex-col px-10 pt-4 w-full rounded-2xl relative min-h-[670px]">
-            {/* Form for updating product details */}
             <form
               className="flex items-center flex-col h-[600px] gap-y-10 relative"
               onSubmit={handleSubmit}
@@ -138,7 +127,6 @@ const UpdateProduct = () => {
                 <div className="text-red-500 text-sm mb-4">{errorMessage}</div>
               )}
 
-              {/* Input fields for the product details */}
               <div className="flex justify-between items-center gap-10 w-full">
                 <InputField
                   label="Category"
@@ -161,6 +149,7 @@ const UpdateProduct = () => {
                   className="w-full"
                 />
               </div>
+
               <div className="flex justify-between items-center gap-10 w-full">
                 <InputField
                   label="Image"
@@ -181,6 +170,7 @@ const UpdateProduct = () => {
                   className="w-full"
                 />
               </div>
+
               <div className="flex justify-between items-center w-full gap-10">
                 <InputField
                   label="Description"
@@ -204,12 +194,13 @@ const UpdateProduct = () => {
                 />
               </div>
 
-              {/* Buttons for cancel and form submission */}
+              {/* Add navigation to redirect to items page */}
               <div className="w-full bg-white flex justify-center items-end gap-3 py-5 absolute bottom-0 left-0">
                 <CustomButton
                   title="Cancel"
                   containerClass="bg-white border !w-[166px] !h-[50px]"
-                  onClick={() => alert("Action Cancelled")}
+                  onClick={() => router.push("/items")} // Redirect on click
+                  type="button"
                 />
                 <CustomButton
                   title="Update"
