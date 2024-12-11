@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import InputField from "../../components/InputField";
 import CustomButton from "../../components/CustomButton";
@@ -16,17 +16,26 @@ interface ProductData {
 }
 
 export default function AddSales() {
+  // State to manage form input values for adding products
   const [formValues, setFormValues] = useState<Product>({
     amount: "",
-    productId: "", // Initialize with empty string
+    productId: "",
   });
 
+  // State to store the list of available products fetched from the API
   const [products, setProducts] = useState<ProductData[]>([]);
+
+  // State for loading indicator when fetching products
   const [loading, setLoading] = useState(false);
+
+  // State to maintain the rows (list of products added in the form)
   const [rows, setRows] = useState<Product[]>([]);
+
+  // State for error and success messages
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
+  // Fetch the list of products from the API when the component loads
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -47,6 +56,7 @@ export default function AddSales() {
     fetchProducts();
   }, []);
 
+  // Handles changes in the form input fields
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -54,6 +64,7 @@ export default function AddSales() {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  // Adds a row to the table with the current form values
   const handleAddRow = () => {
     if (formValues.productId && formValues.amount) {
       setRows((prevRows) => [...prevRows, formValues]);
@@ -63,22 +74,24 @@ export default function AddSales() {
     }
   };
 
-  // Delete handler
+  // Deletes a row from the table by index
   const handleDelete = (index: number) => {
     setRows((prevRows) => prevRows.filter((_, i) => i !== index));
   };
 
-  // Edit handler
+  // Edits an existing row by pre-filling its values in the form
   const handleEdit = (index: number) => {
     const row = rows[index];
     setFormValues({ productId: row.productId, amount: row.amount });
     setRows((prevRows) =>
-      prevRows.filter((_, i) => i !== index) // Optionally, remove the row being edited
+      prevRows.filter((_, i) => i !== index)
     );
   };
 
+  // Submits the sales data to the API
   const handleSubmit = async () => {
     if (rows.length === 0) return;
+
     const salesData = rows.map((row) => ({
       productId: row.productId,
       quantity: parseInt(row.amount),
@@ -107,11 +120,14 @@ export default function AddSales() {
   };
 
   return (
+    // Main container for the Add Sales form and table
     <div className="mt-6 shadow-lg flex flex-col px-8 pt-6 w-full min-h-[670px] rounded-2xl font-Poppins overflow-y-scroll">
+      {/* Form section for adding products */}
       <form
         className="flex items-center flex-col gap-y-10"
         onSubmit={(e) => e.preventDefault()}
       >
+        {/* Input fields for product selection and amount */}
         <div className="flex justify-between items-center gap-10 w-full">
           <SelectField
             label="Product"
@@ -141,28 +157,36 @@ export default function AddSales() {
           />
         </div>
 
+        {/* Button to add a product to the table */}
         <CustomButton
           title="Add"
           onClick={handleAddRow}
           containerClass="text-white !w-[166px]"
         />
+
+        {/* Table displaying added products */}
         <WasteSalesTable
           rows={rows}
-          onEdit={handleEdit}  // Pass the edit handler here
+          onEdit={handleEdit}
           onDelete={handleDelete}
         />
+
+        {/* Submit button for submitting sales data */}
         <CustomButton
           title="Submit"
           onClick={handleSubmit}
           containerClass={`text-white !w-[166px] mb-5 ${rows.length === 0 ? "hidden" : ""}`}
         />
 
+        {/* Error message display */}
         {error && (
           <div className="text-center">
             <p className="text-red-500 mt-4">Something went wrong! Please check your amount input</p>
             <p className="text-red-500 mt-2">{error}</p>
           </div>
         )}
+
+        {/* Success message display */}
         {success && <p className="text-green-500 mt-4">{success}</p>}
       </form>
     </div>

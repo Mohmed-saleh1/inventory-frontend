@@ -17,17 +17,20 @@ interface ProductData {
 }
 
 export default function Waste() {
+  // State for form inputs
   const [formValues, setFormValues] = useState<Product>({
     amount: "",
-    productId: "", // Initialize with empty string
+    productId: "", // Initialize with an empty string
   });
 
+  // State for products fetched from the API
   const [products, setProducts] = useState<ProductData[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [rows, setRows] = useState<Product[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false); // Loading indicator for fetching products
+  const [rows, setRows] = useState<Product[]>([]); // Tracks added rows in the table
+  const [error, setError] = useState<string | null>(null); // Tracks any errors
+  const [success, setSuccess] = useState<string | null>(null); // Tracks success message
 
+  // Fetch products from the API on component mount
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -48,6 +51,7 @@ export default function Waste() {
     fetchProducts();
   }, []);
 
+  // Handle input field changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -55,31 +59,33 @@ export default function Waste() {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  // Add a new row to the table
   const handleAddRow = () => {
     if (formValues.productId && formValues.amount) {
       setRows((prevRows) => [...prevRows, formValues]);
-      setFormValues({ productId: "", amount: "" });
+      setFormValues({ productId: "", amount: "" }); // Reset the form fields
       setError(null);
       setSuccess(null);
     }
   };
 
-  // Delete handler
+  // Delete a specific row from the table
   const handleDelete = (index: number) => {
-    setRows((prevRows) => prevRows.filter((_, i) => i !== index)); // Remove row at specified index
+    setRows((prevRows) => prevRows.filter((_, i) => i !== index));
   };
 
-  // Edit handler
+  // Edit an existing row in the table
   const handleEdit = (index: number) => {
     const row = rows[index];
     setFormValues({ productId: row.productId, amount: row.amount });
-    setRows(
-      (prevRows) => prevRows.filter((_, i) => i !== index) // Optionally, remove the row being edited
-    );
+    setRows((prevRows) => prevRows.filter((_, i) => i !== index)); // Optionally, remove the row being edited
   };
 
+  // Submit the waste data to the API
   const handleSubmit = async () => {
-    if (rows.length === 0) return;
+    if (rows.length === 0) return; // Ensure there is data to submit
+
+    // Prepare waste data payload
     const wasteData = rows.map((row) => ({
       productId: row.productId,
       quantity: parseInt(row.amount),
@@ -99,21 +105,23 @@ export default function Waste() {
       const data = await response.json();
       setSuccess("Waste processed successfully.");
       setError(null);
-      setRows([]);
+      setRows([]); // Clear the table rows
     } catch (error: any) {
       setError(`Error: ${error.message}`);
       setSuccess(null);
-      setRows([]);
+      setRows([]); // Reset rows in case of failure
     }
   };
 
   return (
     <div className="mt-6 shadow-lg flex flex-col px-8 pt-6 w-full min-h-[670px] rounded-2xl font-Poppins overflow-y-scroll">
+      {/* Form for adding and submitting waste data */}
       <form
         className="flex items-center flex-col gap-y-10"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={(e) => e.preventDefault()} // Prevent default form submission behavior
       >
         <div className="flex justify-between items-center gap-10 w-full">
+          {/* Dropdown for selecting a product */}
           <SelectField
             label="Product"
             name="productId"
@@ -130,6 +138,7 @@ export default function Waste() {
                   }))
             }
           />
+          {/* Input field for entering amount */}
           <InputField
             label="Amount"
             type="number"
@@ -142,16 +151,21 @@ export default function Waste() {
           />
         </div>
 
+        {/* Button to add a new row */}
         <CustomButton
           title="Add"
           onClick={handleAddRow}
           containerClass="text-white !w-[166px]"
         />
+
+        {/* Table to display added rows */}
         <WasteSalesTable
           rows={rows}
           onDelete={handleDelete}
           onEdit={handleEdit}
         />
+
+        {/* Button to submit the data */}
         <CustomButton
           title="Submit"
           onClick={handleSubmit}
@@ -160,6 +174,7 @@ export default function Waste() {
           }`}
         />
 
+        {/* Error message display */}
         {error && (
           <div className="text-center">
             <p className="text-red-500 mt-4">
@@ -168,6 +183,8 @@ export default function Waste() {
             <p className="text-red-500 mt-2">{error}</p>
           </div>
         )}
+
+        {/* Success message display */}
         {success && <p className="text-green-500 mt-4">{success}</p>}
       </form>
     </div>
