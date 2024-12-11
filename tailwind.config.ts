@@ -11,7 +11,7 @@ export default {
       fontFamily: {
         lexend: ["lexend", "sans serif"],
 
-        Poppins :["Poppins","sans serif"]
+        Poppins :["Poppins","sans serif"],
 
         manrope: ["manrope", "sans serif"],
       },
