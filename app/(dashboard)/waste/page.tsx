@@ -129,6 +129,12 @@ export default function Waste() {
             ))}
           </tbody>
         </table>
+
+        <CustomButton
+          title="Submit"
+          onClick={() => {}}
+          containerClass={`text-white !w-[166px] ${rows.length ===0 ? "hidden": ""}`}
+        />
       </form>
     </div>
   );
