@@ -17,7 +17,6 @@ export default {
       },
       images: {
         domains: ["inventory-backend-sqbj.onrender.com"],
-
       },
       colors: {
         black: {

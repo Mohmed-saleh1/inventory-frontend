@@ -39,7 +39,11 @@ const TableData = ({ paginatedData, handleEditItem, handleDeleteItem }) => {
             <td className="px-4 py-3">{item.name}</td>
             <td className="px-4 py-3">
               <Image
+
                 src={${item.image}}
+
+               
+
                 alt={item.name}
                 width={400}
                 height={400}

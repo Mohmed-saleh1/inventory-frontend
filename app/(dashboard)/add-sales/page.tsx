@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from "react";
+
 import axios from "axios"; 
 import InputField from "../../components/InputField";
 import CustomButton from "../../components/CustomButton";
@@ -30,18 +31,18 @@ export default function AddSalesPage() {
     e.preventDefault();
 
     if (products.length > 0) {
-      // تجهيز البيانات قبل الإرسال
+      
       const salesData = products.map((product) => {
-        const parsedAmount = parseInt(product.amount); // تحويل الـ amount إلى رقم
+        const parsedAmount = parseInt(product.amount); 
         if (isNaN(parsedAmount)) {
           alert(`Amount for product ID ${product.id} is not a valid number.`);
-          return null; // تجاهل القيم غير الصالحة
+          return null; 
         }
         return {
           productId: product.id,
           quantity: parsedAmount,
         };
-      }).filter(Boolean); // حذف القيم غير الصالحة
+      }).filter(Boolean);
 
       try {
         const response = await axios.post(
