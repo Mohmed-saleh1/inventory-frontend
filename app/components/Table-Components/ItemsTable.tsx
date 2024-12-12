@@ -5,6 +5,7 @@ import LoadingScreen from "../LoadingScreen";
 import EmptyTableState from "./EmptyTableState";
 import TableData from "./TableData";
 import TablePagination from "./TablePagination";
+import { TableItem } from "../../interfaces/TableItem";
 
 // Main component for rendering the items table with pagination, loading, and error handling
 const ItemsTable = () => {

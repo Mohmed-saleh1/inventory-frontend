@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 // Import React and required hooks for state management
 import React, { useState } from "react";
