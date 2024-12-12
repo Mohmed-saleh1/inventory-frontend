@@ -22,7 +22,7 @@ const CustomButton = ({
   return (
     <button
       // Apply base styles for the button
-      className={`group w-fit cursor-pointer overflow-hidden rounded-[10px] px-7 py-3  text-black ${containerClass}`}
+      className={`group w-fit cursor-pointer overflow-hidden rounded-[10px] px-7 py-3 bg-blue-10 text-black ${containerClass}`}
       onClick={onClick}
       type={type}
     >

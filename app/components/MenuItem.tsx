@@ -15,22 +15,27 @@ const MenuItem = ({ name, icon, path, isClickable }: MenuItemProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Define the paths that should be considered as active for the "Items" menu item
-  const isActive = pathname === path || pathname.startsWith(path) && isClickable;
+  // Determine if the current path matches the item path or is a nested path
+  const isActive = pathname === path || (pathname.startsWith(path) && path !== "/");
+
+  // Handle click to navigate if the item is clickable
+  const handleClick = () => {
+    if (isClickable && !isActive) {
+      router.push(path); // Navigate only if the link is clickable and not already active
+    }
+  };
 
   return (
     <li
-      // Handle navigation when the item is clicked, but only if clickable
-      onClick={() => isClickable && router.push(path)}
-      className={`
-        flex items-center relative gap-4 py-2 pl-4 rounded-[10px] rounded-l-none
+      onClick={handleClick}
+      className={`flex items-center relative gap-4 py-2 pl-4 rounded-[10px] rounded-l-none
         ${isClickable ? 
-          "cursor-pointer hover:bg-activeLinkBackground transition-all duration-300" // Hover effect and cursor for clickable items
-          : "cursor-default" // Default cursor when not clickable
+          "cursor-pointer hover:bg-activeLinkBackground transition-all duration-300" // Hover effect for clickable items
+          : "cursor-default" // Default cursor for non-clickable items
         }
         ${isActive ? 
-          "bg-activeLinkBackground text-blue-10 font-semibold before:absolute before:top-0 before:left-0 before:w-[3px] before:rounded-[10px] before:h-full before:bg-blue-10" // Active state styles (background color, text color, and active line)
-          : "font-light text-black-10" // Default inactive state styles
+          "bg-activeLinkBackground text-blue-10 font-semibold before:absolute before:top-0 before:left-0 before:w-[3px] before:rounded-[10px] before:h-full before:bg-blue-10" // Active state styles
+          : "font-light text-black-10" // Inactive state styles
         }
       `}
     >

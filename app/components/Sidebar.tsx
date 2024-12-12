@@ -16,8 +16,8 @@ const Sidebar = () => {
     {
       name: "Dashboard",
       icon: <RxDashboard size={24} />,
-      path: "/dashboard",
-      isClickable: false, // Not clickable
+      path: "/",
+      isClickable: true, // Changed to clickable
     },
     {
       name: "Items",
@@ -29,12 +29,6 @@ const Sidebar = () => {
       name: "Add Sales",
       icon: <HiOutlineBriefcase size={24} />,
       path: "/add-sales",
-      isClickable: true,
-    },
-    {
-      name: "Reports",
-      icon: <TiDocumentText size={24} />,
-      path: "/reports",
       isClickable: true,
     },
     {
@@ -52,7 +46,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-[280px] my-5 ml-5 mr-[30px] font-lexend h-full">
+    <div className="min-w-[280px] my-5 ml-5 mr-[30px] font-lexend h-full">
       <div className="flex flex-col bg-sidebarBackground size-full rounded-[20px] relative">
         <h2 className="text-base font-bold mb-8 px-12 mt-[60px]">Inventory</h2>
         <div className="flex flex-col px-8 w-full">

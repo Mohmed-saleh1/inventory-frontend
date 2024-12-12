@@ -13,7 +13,7 @@ const Navbar = () => {
     "/items/add-items": { title: "Add Items", subtitle: "Add items details information" },
     "/items/update-product/": { title: "Update Product", subtitle: "Update details information" },
     "/add-sales": { title: "Add Daily Sales", subtitle: "sales details information" },
-    "/reports": { title: "Reports", subtitle: "reports details information" },
+    "/": { title: "Reports", subtitle: "reports details information" },
     "/waste": { title: "Expired", subtitle: "expired details information" },
   };
 
