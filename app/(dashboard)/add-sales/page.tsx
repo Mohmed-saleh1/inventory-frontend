@@ -109,7 +109,6 @@ export default function AddSales() {
       );
       if (!response.ok)
         throw new Error(`HTTP error! Status: ${response.status}`);
-      const data = await response.json();
       setSuccess("Sales processed successfully.");
       setError(null);
       setRows([]);
