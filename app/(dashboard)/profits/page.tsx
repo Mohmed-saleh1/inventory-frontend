@@ -50,11 +50,13 @@ const Profits = () => {
             },
           }
         );
-
-        // Update the remainingProfit state with the API response
-        setRemainingProfit(response.data.remainingProfit);
-        setResponseMessage("Calculation successful!");
-        setErrorMessage(""); // Clear any previous errors
+            if(response.status === 201 || response.status === 200){
+              console.log("this is responses", response)
+              setRemainingProfit(response.data.remainingProfit);
+              setResponseMessage("Calculation successful!");
+              setErrorMessage(""); // Clear any previous errors
+            }
+     
       } catch (error) {
         // Handle errors
         setErrorMessage("Failed to calculate profit. Please try again.");
