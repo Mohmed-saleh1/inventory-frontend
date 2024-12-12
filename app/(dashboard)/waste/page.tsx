@@ -102,11 +102,11 @@ export default function Waste() {
       );
       if (!response.ok)
         throw new Error(`HTTP error! Status: ${response.status}`);
-      const data = await response.json();
+      // const data = await response.json();
       setSuccess("Waste processed successfully.");
       setError(null);
       setRows([]); // Clear the table rows
-    } catch (error: any) {
+    } catch (error) {
       setError(`Error: ${error.message}`);
       setSuccess(null);
       setRows([]); // Reset rows in case of failure
