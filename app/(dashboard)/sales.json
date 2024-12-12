@@ -1,0 +1,15 @@
+[
+    {
+      "category": "Electronics",
+      "itemName": "Laptop",
+      "code": "1234",
+      "amount": "20"
+    },
+    {
+      "category": "Furniture",
+      "itemName": "Chair",
+      "code": "5678",
+      "amount": "50"
+    }
+  ]
+  
