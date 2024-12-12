@@ -42,7 +42,7 @@ export const AllItems = () => {
             <CustomButton
               title="Filter"
               leftIcon={<FaSliders size={24} />}
-              containerClass="bg-white border flex items-center justify-center gap-2 text-black-10"
+              containerClass="!bg-white border flex items-center justify-center gap-2 text-black-10"
               onClick={handleFilterClick}
             />
           </div>
