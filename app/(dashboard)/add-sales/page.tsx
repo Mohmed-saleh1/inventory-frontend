@@ -1,189 +1,194 @@
-'use client';
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import InputField from "../../components/InputField";
 import CustomButton from "../../components/CustomButton";
+import SelectField from "../../components/SelectField";
+import WasteSalesTable from "../../components/Waste_Sales-Components/WasteSalesTable";
 
-
-// Define the Product interface to structure the product data
 interface Product {
-  category: string;
-  itemName: string;
-  code: string;
   amount: string;
+  productId: string;
 }
 
-export default function AddSalesPage() {
-  // State to store the list of products
-  const [products, setProducts] = useState<Product[]>([]);
-  
-  // State to handle the form values for adding or editing a product
+interface ProductData {
+  name: string;
+  _id: string;
+}
+
+export default function AddSales() {
+  // State to manage form input values for adding products
   const [formValues, setFormValues] = useState<Product>({
-    category: "",
-    itemName: "",
-    code: "",
     amount: "",
+    productId: "",
   });
 
-  // State to track if a product is being edited and store its index
-  const [editingIndex, setEditingIndex] = useState<number | null>(null); 
+  // State to store the list of available products fetched from the API
+  const [products, setProducts] = useState<ProductData[]>([]);
 
-  // Handle input changes in the form and update the form values
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // State for loading indicator when fetching products
+  const [loading, setLoading] = useState(false);
+
+  // State to maintain the rows (list of products added in the form)
+  const [rows, setRows] = useState<Product[]>([]);
+
+  // State for error and success messages
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  // Fetch the list of products from the API when the component loads
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          "https://inventory-backend-sqbj.onrender.com/products"
+        );
+        if (!response.ok)
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  // Handles changes in the form input fields
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  // Handle form submission for adding or updating a product
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (
-      formValues.category &&
-      formValues.itemName &&
-      formValues.code &&
-      formValues.amount
-    ) {
-      if (editingIndex !== null) {
-        // Update an existing product if editing
-        const updatedProducts = [...products];
-        updatedProducts[editingIndex] = formValues;
-        setProducts(updatedProducts);
-        setEditingIndex(null); // Reset the editing index
-      } else {
-        // Add a new product to the list
-        setProducts([...products, formValues]);
-      }
-      // Reset the form values after submission
-      setFormValues({
-        category: "",
-        itemName: "",
-        code: "",
-        amount: "",
-      });
-    } else {
-      // Show an alert if the form is incomplete
-      alert("Please fill out all fields.");
+  // Adds a row to the table with the current form values
+  const handleAddRow = () => {
+    if (formValues.productId && formValues.amount) {
+      setRows((prevRows) => [...prevRows, formValues]);
+      setFormValues({ productId: "", amount: "" });
+      setError(null);
+      setSuccess(null);
     }
   };
 
-  // Handle the edit button click and populate the form with the product data
-  const handleEdit = (index: number) => {
-    setFormValues(products[index]);
-    setEditingIndex(index);
+  // Deletes a row from the table by index
+  const handleDelete = (index: number) => {
+    setRows((prevRows) => prevRows.filter((_, i) => i !== index));
   };
 
-  // Handle the delete button click and remove the product
-  const handleDelete = (index: number) => {
-    const updatedProducts = products.filter((_, i) => i !== index); // Remove the selected product
-    setProducts(updatedProducts);
+  // Edits an existing row by pre-filling its values in the form
+  const handleEdit = (index: number) => {
+    const row = rows[index];
+    setFormValues({ productId: row.productId, amount: row.amount });
+    setRows((prevRows) =>
+      prevRows.filter((_, i) => i !== index)
+    );
+  };
+
+  // Submits the sales data to the API
+  const handleSubmit = async () => {
+    if (rows.length === 0) return;
+
+    const salesData = rows.map((row) => ({
+      productId: row.productId,
+      quantity: parseInt(row.amount),
+    }));
+
+    try {
+      const response = await fetch(
+        "https://inventory-backend-sqbj.onrender.com/products/sales",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(salesData),
+        }
+      );
+      if (!response.ok)
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      const data = await response.json();
+      setSuccess("Sales processed successfully.");
+      setError(null);
+      setRows([]);
+    } catch (error: any) {
+      setError(`Error: ${error.message}`);
+      setSuccess(null);
+      setRows([]);
+    }
   };
 
   return (
-    <div className="mt-6 shadow-lg flex flex-col px-8 pt-6 w-full rounded-2xl">
-      {/* Form Section */}
-      <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-5 gap-x-20">
-          {/* Input fields for the form */}
-          <InputField
-            label="Category"
-            type="text"
-            name="category"
-            placeholder="Search"
-            value={formValues.category}
+    // Main container for the Add Sales form and table
+    <div className="mt-6 shadow-lg flex flex-col px-8 pt-6 w-full min-h-[670px] rounded-2xl font-Poppins overflow-y-scroll">
+      {/* Form section for adding products */}
+      <form
+        className="flex items-center flex-col gap-y-10"
+        onSubmit={(e) => e.preventDefault()}
+      >
+        {/* Input fields for product selection and amount */}
+        <div className="flex justify-between items-center gap-10 w-full">
+          <SelectField
+            label="Product"
+            name="productId"
+            value={formValues.productId}
             onChange={handleChange}
-            required={true}
-            className="h-[40px] rounded-[6px] border[1px]"
+            required
+            className="w-full"
+            options={
+              loading
+                ? [{ value: "", label: "Loading products..." }]
+                : products.map((product) => ({
+                    value: product._id,
+                    label: product.name,
+                  }))
+            }
           />
           <InputField
-            label="Item Name"
-            type="text"
-            name="itemName"
-            placeholder="Search"
-            value={formValues.itemName}
-            onChange={handleChange}
-            required={true}
-            className="h-[40px] rounded-[6px] border[1px]"
-          />
-          <InputField
-            label="Code"
-            type="text"
-            name="code"
-            placeholder="Enter code"
-            value={formValues.code}
-            onChange={handleChange}
-            required={true}
-            className="h-[40px] rounded-[6px] border[1px]"
-          />
-          <InputField
-            label="Enter amount"
-            type="text"
+            label="Amount"
+            type="number"
             name="amount"
-            placeholder="Enter amount"
+            placeholder="Enter Amount"
+            required
             value={formValues.amount}
             onChange={handleChange}
-            required={true}
-            className="h-[40px] rounded-[6px] border[1px]"
-          />
-          <CustomButton
-            title="Add"
-            containerClass="bg-[##006EC4] text-white text-xl border rounded-md pt-1 mt-8 w-[100px] h-[40px]"
+            className="w-full"
           />
         </div>
-      </form>
-      <div className="flex justify-center items-center mt-10">
-        {/* Submit or Update button */}
+
+        {/* Button to add a product to the table */}
         <CustomButton
-          title={editingIndex !== null ? "Update" : "Submit"}
-          containerClass="bg-[#006EC4] text-white text-xl border rounded-md w-[189px] h-[55px]"
+          title="Add"
+          onClick={handleAddRow}
+          containerClass="text-white !w-[166px]"
         />
-      </div>
 
-      {/* Product List Section */}
-      <div className="my-6 text-2xl font-Poppins">
-        {products.length > 0 ? (
-          <div>
-            {/* Table Header */}
-            <div className="grid grid-cols-5 space-x- bg-[#D9D9D940] shadow shadow-[#006EC480] text-black pl-6 pr-1 py-2 rounded-t-lg">
-              <div>Category</div>
-              <div>Item Name</div>
-              <div>Code</div>
-              <div>Amount</div>
-              <div>Actions</div>
-            </div>
+        {/* Table displaying added products */}
+        <WasteSalesTable
+          rows={rows}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
 
-            {/* Table Rows */}
-            <div className="space-y-5 mt-5">
-              {products.map((product, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between bg-white shadow-xl rounded- border border-gray-300 pl-6 pr-1 py-[5px]"
-                >
-                  <div>{product.category}</div>
-                  <div>{product.itemName}</div>
-                  <div>{product.code}</div>
-                  <div>{product.amount}</div>
-                  <div className="flex space-x-2">
-                    {/* Edit button */}
-                    <CustomButton
-                      title="Edit"
-                      containerClass="bg-[#EDBD1C] text-white text-xl border rounded-md pt-1 w-[100px] h-[40px]"
-                      onClick={() => handleEdit(index)}
-                    />
-                    {/* Delete button */}
-                    <CustomButton
-                      title="Delete"
-                      containerClass="bg-[#E74C3C] text-white text-xl border rounded-md pt-1 w-[100px] h-[40px]"
-                      onClick={() => handleDelete(index)}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+        {/* Submit button for submitting sales data */}
+        <CustomButton
+          title="Submit"
+          onClick={handleSubmit}
+          containerClass={`text-white !w-[166px] mb-5 ${rows.length === 0 ? "hidden" : ""}`}
+        />
+
+        {/* Error message display */}
+        {error && (
+          <div className="text-center">
+            <p className="text-red-500 mt-4">Something went wrong! Please check your amount input</p>
+            <p className="text-red-500 mt-2">{error}</p>
           </div>
-        ) : (
-          // Message when no products are available
-          <p className="text-center text-gray-500">No products added yet.</p>
         )}
-      </div>
+
+        {/* Success message display */}
+        {success && <p className="text-green-500 mt-4">{success}</p>}
+      </form>
     </div>
   );
 }
