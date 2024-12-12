@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-'use client'
+"use client";
 // Import React and required hooks for state management
 import React, { useState } from "react";
 // Import Axios for HTTP requests
@@ -20,7 +20,10 @@ const Profits = () => {
 
   const handleAdd = () => {
     if (employeeName && salary) {
-      const updatedEmployees = [...employees, { name: employeeName, salary: parseFloat(salary) }];
+      const updatedEmployees = [
+        ...employees,
+        { name: employeeName, salary: parseFloat(salary) },
+      ];
       setEmployees(updatedEmployees);
 
       const total = updatedEmployees.reduce((sum, emp) => sum + emp.salary, 0);
@@ -34,7 +37,9 @@ const Profits = () => {
   const handleCalculate = async () => {
     if (profit && employees.length > 0) {
       // Prepare data to send to the API
-      const salaries = employees.map((employee) => ({ salary: employee.salary }));
+      const salaries = employees.map((employee) => ({
+        salary: employee.salary,
+      }));
       const data = {
         salaries,
         profit: parseFloat(profit),
@@ -51,13 +56,12 @@ const Profits = () => {
             },
           }
         );
-            if(response.status === 201 || response.status === 200){
-              console.log("this is responses", response)
-              setRemainingProfit(response.data.remainingProfit);
-              setResponseMessage("Calculation successful!");
-              setErrorMessage(""); // Clear any previous errors
-            }
-     
+        if (response.status === 201 || response.status === 200) {
+          console.log("this is responses", response);
+          setRemainingProfit(response.data.remainingProfit);
+          setResponseMessage("Calculation successful!");
+          setErrorMessage(""); // Clear any previous errors
+        }
       } catch (error) {
         // Handle errors
         setErrorMessage("Failed to calculate profit. Please try again.");
@@ -114,8 +118,12 @@ const Profits = () => {
         <tbody>
           {employees.map((employee, index) => (
             <tr key={index}>
-              <td className="border border-gray-300 px-4 py-2">{employee.name}</td>
-              <td className="border border-gray-300 px-4 py-2">{employee.salary}</td>
+              <td className="border border-gray-300 px-4 py-2">
+                {employee.name}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
+                {employee.salary}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -152,7 +160,9 @@ const Profits = () => {
       </div>
 
       {/* Display response message or error */}
-      {responseMessage && <div className="mt-4 text-green-500">{responseMessage}</div>}
+      {responseMessage && (
+        <div className="mt-4 text-green-500">{responseMessage}</div>
+      )}
       {errorMessage && <div className="mt-4 text-red-500">{errorMessage}</div>}
     </div>
   );
