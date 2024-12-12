@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState, useEffect } from "react";
 import InputField from "../../components/InputField";
@@ -84,9 +83,7 @@ export default function AddSales() {
   const handleEdit = (index: number) => {
     const row = rows[index];
     setFormValues({ productId: row.productId, amount: row.amount });
-    setRows((prevRows) =>
-      prevRows.filter((_, i) => i !== index)
-    );
+    setRows((prevRows) => prevRows.filter((_, i) => i !== index));
   };
 
   // Submits the sales data to the API
@@ -109,11 +106,10 @@ export default function AddSales() {
       );
       if (!response.ok)
         throw new Error(`HTTP error! Status: ${response.status}`);
-      const data = await response.json();
       setSuccess("Sales processed successfully.");
       setError(null);
       setRows([]);
-    } catch (error: any) {
+    } catch (error) {
       setError(`Error: ${error.message}`);
       setSuccess(null);
       setRows([]);
@@ -176,13 +172,17 @@ export default function AddSales() {
         <CustomButton
           title="Submit"
           onClick={handleSubmit}
-          containerClass={`text-white !w-[166px] mb-5 ${rows.length === 0 ? "hidden" : ""}`}
+          containerClass={`text-white !w-[166px] mb-5 ${
+            rows.length === 0 ? "hidden" : ""
+          }`}
         />
 
         {/* Error message display */}
         {error && (
           <div className="text-center">
-            <p className="text-red-500 mt-4">Something went wrong! Please check your amount input</p>
+            <p className="text-red-500 mt-4">
+              Something went wrong! Please check your amount input
+            </p>
             <p className="text-red-500 mt-2">{error}</p>
           </div>
         )}
