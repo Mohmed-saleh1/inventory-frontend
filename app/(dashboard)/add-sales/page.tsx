@@ -1,207 +1,138 @@
-'use client';
-import React, { useState } from "react";
-import axios from "axios"; 
+"use client";
+import React, { useState, useEffect } from "react";
 import InputField from "../../components/InputField";
 import CustomButton from "../../components/CustomButton";
+import SelectField from "../../components/SelectField";
 
 interface Product {
-  category: string;
-  itemName: string;
   amount: string;
-  id: string;
+  productId: string;
 }
 
-export default function AddSalesPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [formValues, setFormValues] = useState<Product>({
-    category: "",
-    itemName: "",
-    amount: "",
-    id: "",
-  });
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+interface ProductData {
+  name: string;
+  _id: string;
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+export default function Waste() {
+  const [formValues, setFormValues] = useState<Product>({
+    amount: "",
+    productId: "",
+  });
+  const [products, setProducts] = useState<ProductData[]>([]); // Store fetched products
+  const [loading, setLoading] = useState(false); // Loading state for fetching products
+  const [rows, setRows] = useState<Product[]>([]); // Rows for the table
+
+  // Fetch products on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          "https://inventory-backend-sqbj.onrender.com/products"
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement> | React.FormEvent) => {
-    e.preventDefault();
-
-    if (products.length > 0) {
-      // تجهيز البيانات قبل الإرسال
-      const salesData = products.map((product) => {
-        const parsedAmount = parseInt(product.amount); // تحويل الـ amount إلى رقم
-        if (isNaN(parsedAmount)) {
-          alert(`Amount for product ID ${product.id} is not a valid number.`);
-          return null; // تجاهل القيم غير الصالحة
-        }
-        return {
-          productId: product.id,
-          quantity: parsedAmount,
-        };
-      }).filter(Boolean); // حذف القيم غير الصالحة
-
-      try {
-        const response = await axios.post(
-          "https://inventory-backend-sqbj.onrender.com/products/sales",
-          salesData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          console.log("Sales processed successfully", response.data);
-          alert("Sales submitted successfully!");
-          setProducts([]); 
-        }
-      } catch (error) {
-        console.error("Error processing sales", error);
-        alert("Failed to submit sales. Please check API compatibility or input data.");
-      }
-    } else {
-      alert("No products to submit.");
+  const handleAddRow = () => {
+    if (formValues.productId && formValues.amount) {
+      setRows((prevRows) => [...prevRows, formValues]);
+      setFormValues({ productId: "", amount: "" }); // Reset the form values
     }
   };
 
-  const handleEdit = (index: number) => {
-    setFormValues(products[index]);
-    setEditingIndex(index);
-  };
-
-  const handleDelete = (index: number) => {
-    const updatedProducts = products.filter((_, i) => i !== index);
-    setProducts(updatedProducts);
-  };
-
   return (
-    <div className="mt-6 shadow-lg flex flex-col px-8 pt-6 w-full rounded-2xl">
-      <form>
-        <div className="grid grid-cols-5 gap-x-20">
-          <InputField
-            label="Category"
-            type="text"
-            name="category"
-            placeholder="Search"
-            value={formValues.category}
+    <div className="mt-6 shadow-lg flex flex-col px-8 pt-6 w-full min-h-[670px] rounded-2xl font-Poppins">
+      <form
+        className="flex items-center flex-col h-[600px] gap-y-10 relative"
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <div className="flex justify-between items-center gap-10 w-full">
+          <SelectField
+            label="Product"
+            name="productId"
+            value={formValues.productId}
             onChange={handleChange}
-            required={true}
-            className="h-[40px] rounded-[6px] border[1px]"
+            required
+            className="w-full"
+            options={
+              loading
+                ? [{ value: "", label: "Loading products..." }]
+                : products.map((product) => ({
+                    value: product._id,
+                    label: product.name,
+                  }))
+            }
           />
           <InputField
-            label="Item Name"
-            type="text"
-            name="itemName"
-            placeholder="Search"
-            value={formValues.itemName}
-            onChange={handleChange}
-            required={true}
-            className="h-[40px] rounded-[6px] border[1px]"
-          />
-          <InputField
-            label="ID"
-            type="text"
-            name="id"
-            placeholder="Enter ID"
-            value={formValues.id}
-            onChange={handleChange}
-            required={true}
-            className="h-[40px] rounded-[6px] border[1px]"
-          />
-          <InputField
-            label="Enter amount"
-            type="text"
+            label="Amount"
+            type="number"
             name="amount"
-            placeholder="Enter amount"
+            placeholder="Enter Amount"
+            required
             value={formValues.amount}
             onChange={handleChange}
-            required={true}
-            className="h-[40px] rounded-[6px] border[1px]"
-          />
-          <CustomButton
-            title={editingIndex !== null ? "Update" : "Add"}
-            containerClass="bg-[#006EC4] text-white text-xl border rounded-md pt-1 mt-12 w-[100px] h-[40px]"
-            onClick={() => {
-              if (
-                formValues.category &&
-                formValues.itemName &&
-                formValues.id &&
-                formValues.amount
-              ) {
-                if (editingIndex !== null) {
-                  const updatedProducts = [...products];
-                  updatedProducts[editingIndex] = formValues;
-                  setProducts(updatedProducts);
-                  setEditingIndex(null);
-                } else {
-                  setProducts([...products, formValues]);
-                }
-                setFormValues({
-                  category: "",
-                  itemName: "",
-                  amount: "",
-                  id: "",
-                });
-              } else {
-                alert("Please fill out all fields.");
-              }
-            }}
-            type="button"
+            className="w-full"
           />
         </div>
-      </form>
 
-      <div className="flex justify-center items-center mt-10">
         <CustomButton
-          title="Submit"
-          containerClass="bg-[#006EC4] text-white text-xl border rounded-md w-[189px] h-[55px]"
-          onClick={handleSubmit}
-          type="button"
+          title="Add"
+          onClick={handleAddRow}
+          containerClass="text-white !w-[166px]"
         />
-      </div>
 
-      <div className="my-6 text-2xl font-Poppins">
-        {products.length > 0 ? (
-          <div>
-            <div className="grid grid-cols-5 space-x- bg-[#D9D9D940] shadow shadow-[#006EC480] text-black pl-6 pr-1 py-2 rounded-t-lg">
-              <div>Category</div>
-              <div>Item Name</div>
-              <div>ID</div>
-              <div>Amount</div>
-              <div>Actions</div>
-            </div>
-
-            <div className="space-y-5 mt-5">
-              {products.map((product, index) => (
-                <div key={index} className="flex justify-between bg-white shadow-xl rounded- border border-gray-300 pl-6 pr-1 py-[5px]">
-                  <div>{product.category}</div>
-                  <div>{product.itemName}</div>
-                  <div>{product.id}</div>
-                  <div>{product.amount}</div>
-                  <div className="flex space-x-2">
-                    <CustomButton
-                      title="Edit"
-                      containerClass="bg-[#EDBD1C] text-white text-xl border rounded-md pt-1 w-[100px] h-[40px]"
-                      onClick={() => handleEdit(index)}
-                    />
-                    <CustomButton
-                      title="Delete"
-                      containerClass="bg-[#B90707] text-white text-xl border rounded-md pt-1 w-[100px] h-[40px]"
-                      onClick={() => handleDelete(index)}
-                    />
-                  </div>
-                </div>
+        <table className="w-full text-center border-separate border-spacing-y-5 table-fixed">
+          <thead className="bg-[#D9D9D940] shadow shadow-[#006EC480] text-black pl-6 pr-1 py-2 rounded-t-lg">
+            <tr>
+              {["Item ID", "Amount"].map((col, index) => (
+                <th
+                  key={index}
+                  className="px-4 py-3 font-manrope text-customGray text-[12px]"
+                >
+                  {col}
+                </th>
               ))}
-            </div>
-          </div>
-        ) : (
-          <p className="text-center text-gray-500">No products added yet.</p>
-        )}
-      </div>
+            </tr>
+          </thead>
+          <tbody className="border">
+            {rows.map((row, index) => (
+              <tr
+                key={index}
+                className="border border-tableBorder drop-shadow-tableShadow"
+              >
+                <td className="px-4 py-3 border border-r-0 rounded-lg rounded-tr-none rounded-br-none">
+                  {row.productId}
+                </td>
+                <td className="px-4 py-3 border border-l-0 rounded-lg rounded-tl-none rounded-bl-none">
+                  {row.amount}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <CustomButton title="Submit"/>
+      </form>
     </div>
   );
-}
+            }
