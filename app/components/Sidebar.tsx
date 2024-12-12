@@ -5,7 +5,6 @@ import CustomButton from "./CustomButton";
 import { RxDashboard } from "react-icons/rx";
 import { TbShoppingBag } from "react-icons/tb";
 import { HiOutlineBriefcase } from "react-icons/hi";
-import { TiDocumentText } from "react-icons/ti";
 import MenuItem from "./MenuItem";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { BsGraphUpArrow } from "react-icons/bs";
