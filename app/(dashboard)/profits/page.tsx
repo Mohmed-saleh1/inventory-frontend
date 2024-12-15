@@ -36,11 +36,13 @@ const Profits = () => {
 
   const handleCalculate = async () => {
     if (profit && employees.length > 0) {
+
       
       const salaries = employees.map((employee) => ({
         salary: employee.salary,
       }));
   
+
       const data = {
         salaries,
         profit: parseFloat(profit), 
@@ -57,6 +59,7 @@ const Profits = () => {
             },
           }
         );
+
   
         
         if (response.status === 200 || response.status === 201) {
@@ -66,6 +69,7 @@ const Profits = () => {
   
           setResponseMessage("Calculation successful!");
           setErrorMessage(""); 
+
         }
       } catch (error) {
         console.error("API Error:", error);

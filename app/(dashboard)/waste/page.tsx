@@ -102,11 +102,11 @@ export default function Waste() {
       );
       if (!response.ok)
         throw new Error(`HTTP error! Status: ${response.status}`);
-      const data = await response.json();
+      // const data = await response.json();
       setSuccess("Waste processed successfully.");
       setError(null);
       setRows([]); // Clear the table rows
-    } catch (error: any) {
+    } catch (error) {
       setError(`Error: ${error.message}`);
       setSuccess(null);
       setRows([]); // Reset rows in case of failure
@@ -114,7 +114,7 @@ export default function Waste() {
   };
 
   return (
-    <div className="mt-6 shadow-lg flex flex-col px-8 pt-6 w-full min-h-[670px] rounded-2xl font-Poppins overflow-y-scroll">
+    <div className="mt-6 shadow-lg flex flex-col px-10 pt-4 w-full min-h-[670px] rounded-2xl font-Poppins overflow-y-scroll">
       {/* Form for adding and submitting waste data */}
       <form
         className="flex items-center flex-col gap-y-10"

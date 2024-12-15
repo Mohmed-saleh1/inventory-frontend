@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { TableItem } from "../interfaces/TableItem";
 
 // Define the props expected by the ImageList component
 interface ImageListProps {

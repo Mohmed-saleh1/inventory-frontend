@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { usePathname } from "next/navigation";
@@ -13,7 +13,7 @@ const Navbar = () => {
     "/items/add-items": { title: "Add Items", subtitle: "Add items details information" },
     "/items/update-product/": { title: "Update Product", subtitle: "Update details information" },
     "/add-sales": { title: "Add Daily Sales", subtitle: "sales details information" },
-    "/reports": { title: "Reports", subtitle: "reports details information" },
+    "/": { title: "Reports", subtitle: "reports details information" },
     "/waste": { title: "Expired", subtitle: "expired details information" },
   };
 
@@ -56,7 +56,13 @@ const Navbar = () => {
 
           <div className="flex items-center w-40 px-5 border rounded-xl">
             <h1>Ahmed Aly</h1>
-            <img className="pl-5" src="/direction-down 01.png" alt="dropdown" />
+            <Image
+              src="/direction-down 01.png"
+              alt="dropdown"
+              width={20}
+              height={20}
+              className="pl-5"
+            />
           </div>
         </div>
       </div>
