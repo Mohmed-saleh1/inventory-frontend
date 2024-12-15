@@ -1,76 +1,83 @@
-'use client';
-import React, { useState } from 'react';
-import InputField from './InputField';
-import CustomButton from './CustomButton';
+"use client";
+import React, { useState } from "react";
+import InputField from "./InputField";
+import CustomButton from "./CustomButton";
+import { IoArrowBack } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
 const Addform: React.FC = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    category: '',
-    image: null, 
-    amount: '',
-    itemName: '',
-    codeNumber: '',
-    description: '',
+    category: "",
+    image: null,
+    amount: "",
+    itemName: "",
+    codeNumber: "",
+    description: "",
   });
 
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
 
-    
-    if (e.target.type === 'file') {
-      setFormData({ ...formData, [name]: (e.target as HTMLInputElement).files?.[0] || null });
+    if (e.target.type === "file") {
+      setFormData({
+        ...formData,
+        [name]: (e.target as HTMLInputElement).files?.[0] || null,
+      });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    
     const formDataToSend = new FormData();
-    formDataToSend.append('category', formData.category);
-    formDataToSend.append('name', formData.itemName);
-    formDataToSend.append('price', formData.amount);
-    formDataToSend.append('quantity', formData.codeNumber);
-    formDataToSend.append('description', formData.description);
+    formDataToSend.append("category", formData.category);
+    formDataToSend.append("name", formData.itemName);
+    formDataToSend.append("price", formData.amount);
+    formDataToSend.append("quantity", formData.codeNumber);
+    formDataToSend.append("description", formData.description);
     if (formData.image) {
-      formDataToSend.append('image', formData.image);
+      formDataToSend.append("image", formData.image);
     }
     console.log([...formDataToSend.entries()]);
-    
 
     try {
-      
-      const response = await fetch('https://inventory-backend-sqbj.onrender.com/products', {
-        method: 'POST',
-        body: formDataToSend,
-      });
-      
+      const response = await fetch(
+        "https://inventory-backend-sqbj.onrender.com/products",
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
-        alert('Product added successfully!');
-        console.log('Response:', data);
+        alert("Product added successfully!");
+        console.log("Response:", data);
 
-        
         setFormData({
-          category: '',
+          category: "",
           image: null,
-          amount: '',
-          itemName: '',
-          codeNumber: '',
-          description: '',
+          amount: "",
+          itemName: "",
+          codeNumber: "",
+          description: "",
         });
       } else {
-        alert('Failed to add product. Please try again.');
+        alert("Failed to add product. Please try again.");
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('Network error. Please check your connection.');
+      console.error("Error:", error);
+      alert("Network error. Please check your connection.");
     }
+  };
+
+  const handleBackClick = () => {
+    router.back();
   };
 
   return (
@@ -79,7 +86,17 @@ const Addform: React.FC = () => {
         onSubmit={handleSubmit}
         className="mt-6 shadow-lg flex flex-col px-20 pt-4 w-full rounded-2xl relative"
       >
-        <h1 className="text-2xl text-black font-semibold mb-4">Add New Item</h1>
+        <div className="flex justify-between mb-5">
+          <h1 className="text-2xl text-black font-semibold mb-4">
+            Add New Item
+          </h1>
+          <CustomButton
+            title="Back"
+            containerClass="text-white flex gap-2 justify-center items-center"
+            leftIcon={<IoArrowBack size={24} />}
+            onClick={handleBackClick}
+          />
+        </div>
 
         {/* Inputs */}
         <div className="grid grid-cols-2 gap-x-44">
@@ -147,8 +164,14 @@ const Addform: React.FC = () => {
 
         {/* Submit Button */}
         <div className="w-full bg-white flex justify-center items-center gap-3 py-5">
-          <CustomButton title="Cancel" containerClass="bg-white border w-[166px] h-[50px]" />
-          <CustomButton title="Add Item" containerClass="text-white border w-[166px] h-[50px]" />
+          <CustomButton
+            title="Cancel"
+            containerClass="bg-white border w-[166px] h-[50px]"
+          />
+          <CustomButton
+            title="Add Item"
+            containerClass="text-white border w-[166px] h-[50px]"
+          />
         </div>
       </form>
     </div>
