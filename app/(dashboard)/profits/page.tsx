@@ -1,4 +1,5 @@
-'use client'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+"use client";
 // Import React and required hooks for state management
 import React, { useState } from "react";
 // Import Axios for HTTP requests
@@ -19,7 +20,10 @@ const Profits = () => {
 
   const handleAdd = () => {
     if (employeeName && salary) {
-      const updatedEmployees = [...employees, { name: employeeName, salary: parseFloat(salary) }];
+      const updatedEmployees = [
+        ...employees,
+        { name: employeeName, salary: parseFloat(salary) },
+      ];
       setEmployees(updatedEmployees);
 
       const total = updatedEmployees.reduce((sum, emp) => sum + emp.salary, 0);
@@ -32,17 +36,20 @@ const Profits = () => {
 
   const handleCalculate = async () => {
     if (profit && employees.length > 0) {
-      // Prepare data to send to the API
-      const salaries = employees.map((employee) => ({ salary: employee.salary }));
+      
+      const salaries = employees.map((employee) => ({
+        salary: employee.salary,
+      }));
+  
       const data = {
         salaries,
-        profit: parseFloat(profit),
+        profit: parseFloat(profit), 
       };
-
+  
       try {
-        // Make the POST request
+      
         const response = await axios.post(
-          "https://inventory-backend-sqbj.onrender.com/products/calculate-profit",
+          "https://inventory-backend-sqbj.onrender.com/products/calculate-profit", 
           data,
           {
             headers: {
@@ -50,15 +57,18 @@ const Profits = () => {
             },
           }
         );
-            if(response.status === 201 || response.status === 200){
-              console.log("this is responses", response)
-              setRemainingProfit(response.data.remainingProfit);
-              setResponseMessage("Calculation successful!");
-              setErrorMessage(""); // Clear any previous errors
-            }
-     
+  
+        
+        if (response.status === 200 || response.status === 201) {
+          console.log("Response from API:", response.data);
+  
+          setRemainingProfit(response.data.remainingProfit);
+  
+          setResponseMessage("Calculation successful!");
+          setErrorMessage(""); 
+        }
       } catch (error) {
-        // Handle errors
+        console.error("API Error:", error);
         setErrorMessage("Failed to calculate profit. Please try again.");
         setResponseMessage("");
       }
@@ -67,6 +77,7 @@ const Profits = () => {
       setResponseMessage("");
     }
   };
+  
 
   return (
     <div className="flex flex-col px-24 mt-4 shadow-lg h-screen pt-8 w-full rounded-2xl">
@@ -113,8 +124,12 @@ const Profits = () => {
         <tbody>
           {employees.map((employee, index) => (
             <tr key={index}>
-              <td className="border border-gray-300 px-4 py-2">{employee.name}</td>
-              <td className="border border-gray-300 px-4 py-2">{employee.salary}</td>
+              <td className="border border-gray-300 px-4 py-2">
+                {employee.name}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
+                {employee.salary}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -151,7 +166,9 @@ const Profits = () => {
       </div>
 
       {/* Display response message or error */}
-      {responseMessage && <div className="mt-4 text-green-500">{responseMessage}</div>}
+      {responseMessage && (
+        <div className="mt-4 text-green-500">{responseMessage}</div>
+      )}
       {errorMessage && <div className="mt-4 text-red-500">{errorMessage}</div>}
     </div>
   );
