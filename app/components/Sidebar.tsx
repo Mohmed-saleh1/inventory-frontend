@@ -4,6 +4,7 @@ import React from "react";
 import CustomButton from "./CustomButton";
 import { RxDashboard } from "react-icons/rx";
 import { TbShoppingBag } from "react-icons/tb";
+import { TiShoppingCart } from "react-icons/ti";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import MenuItem from "./MenuItem";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -24,6 +25,13 @@ const Sidebar = () => {
       path: "/items",
       isClickable: true,
     },
+    {
+      name: "orders",
+      icon: <TiShoppingCart size={24} />,
+      path: "/orders",
+      isClickable: true,
+    },
+
     {
       name: "Add Sales",
       icon: <HiOutlineBriefcase size={24} />,

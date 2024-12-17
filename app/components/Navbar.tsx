@@ -15,6 +15,8 @@ const Navbar = () => {
     "/add-sales": { title: "Add Daily Sales", subtitle: "sales details information" },
     "/": { title: "Reports", subtitle: "reports details information" },
     "/waste": { title: "Expired", subtitle: "expired details information" },
+    "/orders": { title: "Orders", subtitle: "orders details information" },
+    
   };
 
   // Handle dynamic routing logic for `/items/update-product/[id]`
