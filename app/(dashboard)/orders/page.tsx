@@ -7,7 +7,7 @@ import ItemsTable from "../../components/Table-Components/ItemsTable";
 
 
 // Main component for displaying all items with search, add, and filter functionalities
-export const orderPage = () => {
+export const OrderPage = () => {
   const router = useRouter();
 
   // Handles navigation to the add-item page
@@ -36,4 +36,4 @@ export const orderPage = () => {
   );
 };
 
-export default orderPage;
+export default OrderPage;

@@ -16,7 +16,7 @@ interface ProductData {
   _id: string;
 }
 
-export default function addorders() {
+export default function Addorders() {
   // State to manage form values for adding orders
   const [formValues, setFormValues] = useState<Product>({
     amount: "",
