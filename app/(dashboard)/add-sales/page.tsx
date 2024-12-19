@@ -163,9 +163,10 @@ export default function AddSales() {
 
         {/* Table displaying added products */}
         <WasteSalesTable
-          rows={rows}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
+      rows={rows}
+      onEdit={handleEdit}
+      onDelete={handleDelete}
+      products={products}
         />
 
         {/* Submit button for submitting sales data */}

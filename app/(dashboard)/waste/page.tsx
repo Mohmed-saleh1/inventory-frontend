@@ -161,8 +161,9 @@ export default function Waste() {
         {/* Table to display added rows */}
         <WasteSalesTable
           rows={rows}
-          onDelete={handleDelete}
           onEdit={handleEdit}
+          onDelete={handleDelete}
+          products={products}
         />
 
         {/* Button to submit the data */}

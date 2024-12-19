@@ -164,10 +164,10 @@ export default function addorders() {
 
         {/* Table displaying added products */}
         <WasteSalesTable
-          rows={rows}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          products={products} // Pass the product list to display names instead of IDs
+        rows={rows}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        products={products} // Pass the product list to display names instead of IDs
         />
 
         {/* Submit button for submitting orders data */}

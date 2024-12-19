@@ -12,6 +12,11 @@ interface TableItem {
   image: string;
   price: number;
   quantity: number;
+  available: number;
+  sales: number;
+  waste: number;
+
+
 }
 
 interface TableDataProps {
@@ -29,7 +34,7 @@ const TableData: React.FC<TableDataProps> = ({
     <table className="table-auto w-full border-collapse text-sm text-left">
       <thead className="bg-[#FAFAFA] text-gray-700">
         <tr>
-          {["Category", "Name", "Image", "Price", "Quantity", "Actions"].map(
+          {["Category", "Name", "Image", "Price", "Quantity", "available", "sales", "waste",  "Actions"].map(
             (col, index) => (
               <th
                 key={index}
@@ -62,6 +67,9 @@ const TableData: React.FC<TableDataProps> = ({
             </td>
             <td className="px-4 py-3">{item.price.toFixed(2)}</td>
             <td className="px-4 py-3">{item.quantity}</td>
+            <td className="px-4 py-3">{item.available}</td>
+            <td className="px-4 py-3">{item.sales}</td>
+            <td className="px-4 py-3">{item.waste}</td>
             <td className="px-4 py-3 flex gap-2 justify-center items-center">
               <CustomButton
                 title="Edit Item"
