@@ -139,6 +139,8 @@ const UpdateProduct = () => {
     <LoadingScreen />
   ) : (
     <div className="flex justify-center items-center gap-5">
+  
+      
       {/* Display the product image list here */}
       <ImageList productId={Array.isArray(id) ? id[0] : id} updatedImage={updatedImageUrl} />
 
@@ -148,6 +150,11 @@ const UpdateProduct = () => {
           className="flex items-center flex-col h-[600px] gap-y-10 relative"
           onSubmit={handleSubmit}
         >
+           <CustomButton
+  title="Back to Items" 
+  onClick={() => window.history.back()} 
+  containerClass="text-white  ml-auto"
+/>
           {/* Display any error message */}
           {errorMessage && (
             <div className="text-red-500 text-sm mb-4">{errorMessage}</div>

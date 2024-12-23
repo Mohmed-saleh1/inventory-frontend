@@ -75,10 +75,17 @@ const Addform: React.FC = () => {
 
   return (
     <div className="flex bg-white">
+
+   
       <form
         onSubmit={handleSubmit}
         className="mt-6 shadow-lg flex flex-col px-20 pt-4 w-full rounded-2xl relative"
       >
+           <CustomButton
+  title="Back to Items" 
+  onClick={() => window.history.back()} 
+  containerClass="text-white  ml-auto"
+/>
         <h1 className="text-2xl text-black font-semibold mb-4">Add New Item</h1>
 
         {/* Inputs */}

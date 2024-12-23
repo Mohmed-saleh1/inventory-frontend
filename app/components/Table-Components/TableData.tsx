@@ -34,7 +34,7 @@ const TableData: React.FC<TableDataProps> = ({
     <table className="table-auto w-full border-collapse text-sm text-left">
       <thead className="bg-[#FAFAFA] text-gray-700">
         <tr>
-          {["Category", "Name", "Image", "Price", "Quantity", "available", "sales", "waste",  "Actions"].map(
+          {["Category", "Name",  "Price", "Quantity", "available", "sales", "waste",  "Actions"].map(
             (col, index) => (
               <th
                 key={index}
@@ -56,16 +56,10 @@ const TableData: React.FC<TableDataProps> = ({
           >
             <td className="px-4 py-3">{item.category}</td>
             <td className="px-4 py-3">{item.name}</td>
+           
             <td className="px-4 py-3">
-            <Image
-                src={`${item.image}`}
-                alt={item.name}
-                width={40}
-                height={40}
-                className="w-10 h-10 mx-auto"
-              />
-            </td>
-            <td className="px-4 py-3">{item.price.toFixed(2)}</td>
+  {item.price !== undefined && item.price !== null ? item.price.toFixed(2) : "N/A"}
+</td>
             <td className="px-4 py-3">{item.quantity}</td>
             <td className="px-4 py-3">{item.available}</td>
             <td className="px-4 py-3">{item.sales}</td>

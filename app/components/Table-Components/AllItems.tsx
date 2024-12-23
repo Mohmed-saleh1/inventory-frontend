@@ -49,7 +49,8 @@ export const AllItems = () => {
         </div>
 
         {/* Render the table of items */}
-        <ItemsTable />
+        <ItemsTable
+        />
       </div>
     </div>
   );
