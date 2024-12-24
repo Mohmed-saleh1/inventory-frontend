@@ -6,4 +6,7 @@ export interface TableItem {
   quantity: number;
   description: string;
   image: string | null;
+  available: number;
+  sales: number;
+  waste: number;
 }
