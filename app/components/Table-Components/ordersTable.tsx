@@ -5,7 +5,7 @@ import LoadingScreen from "../LoadingScreen";
 import TablePagination from "./TablePagination";
 import { TableItem } from "../../interfaces/TableItem";
 import OrderWidget from "./Orderwidget";
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 // Main component for rendering the items table with pagination, loading, and error handling
 const OrdersTable = () => {
   const [tableData, setTableData] = useState<TableItem[]>([]);
@@ -22,7 +22,7 @@ const OrdersTable = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://inventory-backend-sqbj.onrender.com/orders");
+      const response = await fetch(`${apiBaseUrl}/orders`);
       if (!response.ok) throw new Error("Failed to fetch data");
   
       const data = await response.json();

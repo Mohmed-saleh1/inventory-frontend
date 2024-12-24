@@ -20,7 +20,6 @@ const WasteSalesTable = ({ rows, onEdit, onDelete, products }) => {
       </thead>
       <tbody className="border">
         {rows.map((row, index) => {
-          // الحصول على اسم المنتج بناءً على الـ productId
           const productName =
             products.find((product) => product._id === row.productId)?.name ||
             "Unknown Product";

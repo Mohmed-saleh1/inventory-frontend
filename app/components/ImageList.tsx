@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TableItem } from "../interfaces/TableItem";
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 // Define the props expected by the ImageList component
 interface ImageListProps {
   productId: string; // The product ID to fetch images for
@@ -23,7 +23,7 @@ const ImageList = ({ productId, updatedImage }: ImageListProps) => {
     try {
       setIsLoading(true); // Set loading state to true while fetching
       const response = await fetch(
-        `https://inventory-backend-sqbj.onrender.com/products/${id}`
+        `${apiBaseUrl}/products/${id}`
       );
 
       if (!response.ok) {

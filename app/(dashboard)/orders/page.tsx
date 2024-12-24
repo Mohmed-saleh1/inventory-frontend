@@ -4,8 +4,6 @@ import { GrAddCircle } from "react-icons/gr";
 import { useRouter } from "next/navigation";
 import CustomButton from "../../components/CustomButton";
 import OrdersTable from "../../components/Table-Components/ordersTable";
-
-
 export const orderPage = () => {
   const router = useRouter();
 

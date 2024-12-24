@@ -6,7 +6,7 @@ import EmptyTableState from "./EmptyTableState";
 import TableData from "./TableData";
 import TablePagination from "./TablePagination";
 import { TableItem } from "../../interfaces/TableItem";
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 // Main component for rendering the items table with pagination, loading, and error handling
 const ItemsTable = () => {
   const [tableData, setTableData] = useState<TableItem[]>([]);
@@ -24,7 +24,7 @@ const ItemsTable = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://inventory-backend-sqbj.onrender.com/products"
+        `${apiBaseUrl}/products`
       );
       if (!response.ok) throw new Error("Failed to fetch data");
       const data: TableItem[] = await response.json();
@@ -84,7 +84,7 @@ const ItemsTable = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://inventory-backend-sqbj.onrender.com/products/${itemId}`,
+        `${apiBaseUrl}/products/${itemId}`,
         {
           method: "DELETE",
         }
@@ -113,7 +113,7 @@ const ItemsTable = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://inventory-backend-sqbj.onrender.com/products/${id}`
+        `${apiBaseUrl}/products/${id}`
       );
 
       if (!response.ok) {

@@ -4,7 +4,7 @@ import SelectField from "../../../components/SelectField";
 import InputField from "../../../components/InputField";
 import CustomButton from "../../../components/CustomButton";
 import WasteSalesTable from "../../../components/Waste_Sales-Components/WasteSalesTable";
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 interface Product {
   amount: string;
   productId: string;
@@ -32,7 +32,7 @@ export default function AddOrders() {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://inventory-backend-sqbj.onrender.com/products"
+          `${apiBaseUrl}/products`
         );
         if (!response.ok)
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -95,7 +95,7 @@ export default function AddOrders() {
 
     try {
       const response = await fetch(
-        "https://inventory-backend-sqbj.onrender.com/orders",
+        `${apiBaseUrl}/orders`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -1,5 +1,5 @@
 "use client";
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 import { useEffect, useState } from "react";
 import { usePathname, useParams, useRouter } from "next/navigation";
 import CustomButton from "../../../../components/CustomButton";
@@ -50,7 +50,7 @@ const UpdateProduct = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `https://inventory-backend-sqbj.onrender.com/products/${productId}`
+        `${apiBaseUrl}/products/${productId}`
       );
 
       if (!response.ok) {
@@ -114,7 +114,7 @@ const UpdateProduct = () => {
       });
 
       const response = await fetch(
-        `https://inventory-backend-sqbj.onrender.com/products/${id}`,
+        `${apiBaseUrl}/products/${id}`,
         {
           method: "PUT",
           body: formDataToSend,

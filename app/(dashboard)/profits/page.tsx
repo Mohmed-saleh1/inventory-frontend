@@ -7,7 +7,7 @@ import axios from "axios";
 // Import custom components for input fields and buttons
 import InputField from "../../components/InputField";
 import CustomButton from "../../components/CustomButton";
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 const Profits = () => {
   const [employees, setEmployees] = useState([]);
   const [employeeName, setEmployeeName] = useState("");
@@ -48,7 +48,7 @@ const Profits = () => {
       try {
         // Make the POST request
         const response = await axios.post(
-          "https://inventory-backend-sqbj.onrender.com/products/calculate-profit",
+          `${apiBaseUrl}/products/calculate-profit`,
           data,
           {
             headers: {

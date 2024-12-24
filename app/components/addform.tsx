@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import InputField from './InputField';
 import CustomButton from './CustomButton';
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 const Addform: React.FC = () => {
   const [formData, setFormData] = useState({
     category: '',
@@ -44,7 +44,7 @@ const Addform: React.FC = () => {
 
     try {
       
-      const response = await fetch('https://inventory-backend-sqbj.onrender.com/products', {
+      const response = await fetch(   `${apiBaseUrl}/products`, {
         method: 'POST',
         body: formDataToSend,
       });
