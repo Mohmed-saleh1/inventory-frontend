@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import CustomButton from "../../components/CustomButton";
 
 import OrdersTable from "../../components/Table-Components/ordersTable";
-export const OrderPage = () => {
-
+const OrderPage = () => {
   const router = useRouter();
 
   // Navigate to add orders page
@@ -17,11 +16,9 @@ export const OrderPage = () => {
   return (
     <div className="mt-6 shadow-lg flex flex-col px-10 pt-4 w-full rounded-2xl relative min-h-screen overflow-auto">
       <div className="flex flex-col justify-center items-center w-full py-5">
-
         <div className="flex gap-3 justify-center items-center">
           <CustomButton
             title="Create Order"
-
             leftIcon={<GrAddCircle size={24} />}
             containerClass="flex items-center justify-center gap-2 text-white"
             onClick={handleAddItemClick}
@@ -29,11 +26,10 @@ export const OrderPage = () => {
         </div>
 
         {/* Render the ItemsTable with order-related APIs */}
-<OrdersTable/>
-
+        <OrdersTable />
       </div>
     </div>
   );
 };
 
-export default OrderPage; 
+export default OrderPage;

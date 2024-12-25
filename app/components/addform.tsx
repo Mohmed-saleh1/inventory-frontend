@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import InputField from './InputField';
 import CustomButton from './CustomButton';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 const Addform: React.FC = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const [formData, setFormData] = useState({
     category: "",
     image: null,
@@ -75,9 +75,9 @@ const Addform: React.FC = () => {
     }
   };
 
-  const handleBackClick = () => {
-    router.back();
-  };
+  // const handleBackClick = () => {
+  //   router.back();
+  // };
 
   return (
     <div className="flex bg-white">

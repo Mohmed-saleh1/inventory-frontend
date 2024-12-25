@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import LoadingScreen from "../LoadingScreen";
 import TablePagination from "./TablePagination";
 import { TableItem } from "../../interfaces/TableItem";
@@ -13,7 +12,6 @@ const OrdersTable = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 7; // Items per page for pagination
-  const router = useRouter();
 
   /**
    * Fetch data from the backend API
@@ -24,9 +22,9 @@ const OrdersTable = () => {
       setLoading(true);
       const response = await fetch(`${apiBaseUrl}/orders`);
       if (!response.ok) throw new Error("Failed to fetch data");
-  
+
       const data = await response.json();
-      setTableData(data); 
+      setTableData(data);
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -35,8 +33,6 @@ const OrdersTable = () => {
       setLoading(false);
     }
   };
-  
-  
 
   useEffect(() => {
     fetchData();
@@ -65,14 +61,10 @@ const OrdersTable = () => {
     setCurrentPage(page);
   };
 
-  const paginatedData = tableData.slice(
-    (currentPage - 1) * recordsPerPage,
-    currentPage * recordsPerPage
-  );
-
-
-
-
+  // const paginatedData = tableData.slice(
+  //   (currentPage - 1) * recordsPerPage,
+  //   currentPage * recordsPerPage
+  // );
 
   if (loading) return <LoadingScreen />;
   if (error) return <div className="text-red-500">Error: {error}</div>;
@@ -82,14 +74,15 @@ const OrdersTable = () => {
       {/* Main Table Logic Wrapper */}
       <div className="overflow-x-auto">
         {/* Show Empty State if no data is present */}
-       {tableData.map((order) =>
-  order.record && order.record.length > 0 ? (
-    <OrderWidget key={order._id} order={order} />
-  ) : (
-    <div key={order._id} className="text-gray-500">No Records Found</div>
-  )
-)}
-
+        {tableData.map((order) =>
+          order.record && order.record.length > 0 ? (
+            <OrderWidget key={order._id} order={order} />
+          ) : (
+            <div key={order._id} className="text-gray-500">
+              No Records Found
+            </div>
+          )
+        )}
       </div>
       {/* Pagination Component */}
       <TablePagination
@@ -103,7 +96,6 @@ const OrdersTable = () => {
       />
     </div>
   );
-  
 };
 
 export default OrdersTable;

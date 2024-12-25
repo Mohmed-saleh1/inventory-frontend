@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import { MdModeEdit } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
