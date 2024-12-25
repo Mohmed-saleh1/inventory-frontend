@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import CustomButton from "../../components/CustomButton";
 
 import OrdersTable from "../../components/Table-Components/ordersTable";
-export const orderPage = () => {
+export const OrderPage = () => {
 
   const router = useRouter();
 
