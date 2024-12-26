@@ -43,7 +43,7 @@ export const OrderWidget = ({ order }) => {
                 className="hover:bg-gray-50 font-manrope text-[#111827] text-[12px]"
               >
                 <td className="px-4 py-3">
-                  {recordItem.productId?.name || "N/A"}
+                  {recordItem.productId?.name || "0"}
                 </td>
                 <td className="px-4 py-3">
                   {recordItem.productId?.image ? (
@@ -56,26 +56,26 @@ export const OrderWidget = ({ order }) => {
                    
                    />
                   ) : (
-                    "N/A"
+                    "0"
                   )}
                 </td>
                 <td className="px-4 py-3">
                   {recordItem.productId?.price
                     ? recordItem.productId.price.toFixed(2)
-                    : "N/A"}
+                    : "0"}
                 </td>
                 <td className="px-4 py-3">
-                  {recordItem.productId?.description || "N/A"}
+                  {recordItem.productId?.description || "0"}
                 </td>
-                <td className="px-4 py-3">{recordItem.amount || "N/A"}</td>
+                <td className="px-4 py-3">{recordItem.amount || "0"}</td>
                 <td className="px-4 py-3">
-                  {recordItem.productId?.available || "N/A"}
-                </td>
-                <td className="px-4 py-3">
-                  {recordItem.productId?.sales || "N/A"}
+                  {recordItem.productId?.available || "0"}
                 </td>
                 <td className="px-4 py-3">
-                  {recordItem.productId?.waste || "N/A"}
+                  {recordItem.productId?.sales || "0"}
+                </td>
+                <td className="px-4 py-3">
+                  {recordItem.productId?.waste || "0"}
                 </td>
               </tr>
             ))}
