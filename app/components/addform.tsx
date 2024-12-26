@@ -12,7 +12,7 @@ const Addform: React.FC = () => {
     image: null,
     amount: "",
     itemName: "",
-    codeNumber: "",
+    price: "",
     description: "",
   });
 
@@ -37,8 +37,8 @@ const Addform: React.FC = () => {
     const formDataToSend = new FormData();
     formDataToSend.append("category", formData.category);
     formDataToSend.append("name", formData.itemName);
-    formDataToSend.append("price", formData.amount);
-    formDataToSend.append("quantity", formData.codeNumber);
+    formDataToSend.append("price", formData.price);
+    formDataToSend.append("quantity", formData.amount);
     formDataToSend.append("description", formData.description);
     if (formData.image) {
       formDataToSend.append("image", formData.image);
@@ -63,7 +63,7 @@ const Addform: React.FC = () => {
           image: null,
           amount: "",
           itemName: "",
-          codeNumber: "",
+          price: "",
           description: "",
         });
       } else {
@@ -123,12 +123,12 @@ const Addform: React.FC = () => {
             onChange={handleChange}
           />
           <InputField
-            label="Code Number"
+            label="price"
             type="text"
-            name="codeNumber"
-            placeholder="Enter code number"
+            name="price"
+            placeholder="Enter price"
             required={true}
-            value={formData.codeNumber}
+            value={formData.price}
             onChange={handleChange}
           />
           <InputField
